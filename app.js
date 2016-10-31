@@ -11,7 +11,7 @@ var users = require('./routes/users');
 var app = express();
 
 // view engine setup
-app.engine('.html', require('ejs').__express); 
+app.engine('.html', require('ejs').__express);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
@@ -22,6 +22,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+(function() {
+  // Step 1: 引入 webpack 的配置文件和 生成 webpack 的编译器
+  var webpack = require('webpack');
+  var webpackConfig = require(process.env.WEBPACK_CONFIG ? process.env.WEBPACK_CONFIG : './webpack.config');
+  var compiler = webpack(webpackConfig);
+  // Step 2: 将编译器挂载给 webpack dev middleware
+  app.use(require("webpack-dev-middleware")(compiler, {
+    noInfo: true, publicPath: webpackConfig.output.publicPath
+  }));
+
+  // Step 3: 将编译器挂载给 webpack hot middleware
+  app.use(require("webpack-hot-middleware")(compiler, {
+    log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
+  }));
+})();
+
 
 app.use('/', routes);
 app.use('/users', users);
