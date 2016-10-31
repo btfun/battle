@@ -1,5 +1,5 @@
 .settings/
-.idea/
+.DS_Store
 target/
 *.iml
 logs/
