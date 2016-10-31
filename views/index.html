@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>现代</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=11;IE=10;IE=EDGE" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel='stylesheet' href='/stylesheets/animate.min.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <script type="text/javascript" src="/javascripts/lib/requireJS/requireJS.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Hello App!</h1>
+      <p>
+        <!-- 使用 router-link 组件来导航. -->
+        <!-- 通过传入 `to` 属性指定链接. -->
+        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+        <router-link to="/">Go to Foo</router-link>
+        <router-link to="/busi">Go to busi</router-link>
+        <router-link to="/custom">Go to custom Bar</router-link>
+      </p>
+      <!-- <input v-model.lazy.trim="msg" type="text">{{msg}}
+      <hr>
+      <input v-model.number="age" type="number">{{age}}
+      <hr> -->
+      <router-view></router-view>
+    </div>
+
+<script type="text/javascript">
+    requirejs.config({
+      baseUrl: '/',
+      paths: {
+          text: 'javascripts/lib/requireJS/requireJS-text',
+          vue: 'javascripts/lib/vue/vue',
+          vueRouter: 'javascripts/lib/vue/vue-router/vue-router',
+          vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
+          vuex: 'javascripts/lib/vue/vuex/vuex',
+          logger: 'javascripts/lib/vue/vuex/logger',
+
+          index: 'javascripts/manager/index',
+          mainRouter: 'javascripts/manager/mainRouter',
+
+          homeRouter: 'components/manager/home/homeRouter',
+          busiRouter: 'components/manager/busi/busiRouter',
+          customRouter: 'components/manager/custom/customRouter',
+
+          homeModule: 'components/manager/home/homeModule',
+          busiModule: 'components/manager/busi/busiModule',
+          customModule: 'components/manager/custom/customModule',
+
+          oneModule: 'components/manager/home/children/one/oneModule',
+          twoModule: 'components/manager/home/children/two/twoModule'
+
+
+      }
+    });
+    require(['text','index']);
+</script>
+  </body>
+</html>
