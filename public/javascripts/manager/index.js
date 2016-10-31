@@ -14,7 +14,7 @@ define(function(require){
 
 
  var router = new VueRouter({
-   routes: mainRouter // （缩写）相当于 routes: routes
+   routes: mainRouter 
  })
 
  router.beforeEach((to, from, next) => {
