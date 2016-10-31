@@ -1,10 +1,9 @@
 # battle
 
 一个人无聊的时候建立的，期望懒到爆炸的人跟我一块建立一个懒人脚手架
-
+集成vue2.0 全家桶
 
 ## Build Setup
-
 ``` bash
 # install dependencies  test
 npm install
