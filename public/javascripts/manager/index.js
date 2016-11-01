@@ -12,13 +12,11 @@ define(function(require){
  Vue.use(vueResource);
 
 
-
  var router = new VueRouter({
-   routes: mainRouter 
+   routes: mainRouter
  })
 
  router.beforeEach((to, from, next) => {
-  //  console.log('to',to,' from',from)
    console.log(to.path)
    next()
  })
