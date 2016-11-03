@@ -22,10 +22,6 @@
         <router-link to="/busi">Go to busi</router-link>
         <router-link to="/custom">Go to custom Bar</router-link>
       </p>
-      <!-- <input v-model.lazy.trim="msg" type="text">{{msg}}
-      <hr>
-      <input v-model.number="age" type="number">{{age}}
-      <hr> -->
       <router-view></router-view>
     </div>
 
@@ -41,6 +37,7 @@
           logger: 'javascripts/lib/vue/vuex/logger',
 
           index: 'javascripts/manager/index',
+          vuexStore: 'javascripts/manager/vuexStore',
           mainRouter: 'javascripts/manager/mainRouter',
 
           homeRouter: 'components/manager/home/homeRouter',
