@@ -1,6 +1,8 @@
 define(function(require){
 'use strict'
-
+/*
+home 组件的顶级模块
+*/
 
 return  {
     template: require('text!components/manager/home/homeTmpl.html'),

@@ -4,9 +4,9 @@ define(function(require){
 
   //模块主路由
    const routes = [
-       require('homeRouter'),
-       require('busiRouter'),
-       require('customRouter'),
+       require('home.homeRouter'),
+       require('busi.busiRouter'),
+       require('custom.customRouter'),
    ]
 
    return routes;

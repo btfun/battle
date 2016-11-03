@@ -10,7 +10,7 @@ const UserProfile = {
 }
 
   return  { path: '/busi',
-        component: resolve => require(['busiModule'], resolve),
+        component: resolve => require(['busi.busiModule'], resolve),
         children: [
           {
             path: '',
@@ -19,7 +19,7 @@ const UserProfile = {
         ]
        }
 
- 
+
 
 
 });

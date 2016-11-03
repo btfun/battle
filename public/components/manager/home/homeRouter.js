@@ -8,15 +8,15 @@ home/two
 
 */
   return { path: '/',
-            component: resolve => require(['homeModule'],resolve),
+            component: resolve => require(['home.homeModule'],resolve),
             children: [
               {
                 path: 'one',
-                component: resolve => require(['oneModule'],resolve)
+                component: resolve => require(['home.oneModule'],resolve)
               },
               {
                 path: 'two',
-                component: resolve => require(['twoModule'],resolve)
+                component: resolve => require(['home.twoModule'],resolve)
               }
             ]
           }

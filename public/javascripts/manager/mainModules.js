@@ -5,9 +5,9 @@ define(function(require){
 
 
 return {
-  home: require('module'),
-  custom: '',
-  busi: ''
+  home: require('home.module'), //home 模块状态组件
+  custom: require('custom.module'),//custom 模块状态组件
+  busi: require('busi.module')
 }
 
 

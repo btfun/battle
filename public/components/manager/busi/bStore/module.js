@@ -1,10 +1,10 @@
 define(function(require){
   'use strict'
 
-    var store = require('store');
-    var getters = require('getters');
-    var mutations = require('mutations');
-    var actions = require('actions');
+    var store = require('busi.store');
+    var getters = require('busi.getters');
+    var mutations = require('busi.mutations');
+    var actions = require('busi.actions');
 
 
 

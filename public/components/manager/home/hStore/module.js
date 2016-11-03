@@ -1,10 +1,10 @@
 define(function(require){
   'use strict'
 
-    var store = require('store');
-    var getters = require('getters');
-    var mutations = require('mutations');
-    var actions = require('actions');
+    var store = require('home.store');
+    var getters = require('home.getters');
+    var mutations = require('home.mutations');
+    var actions = require('home.actions');
 
 
 
