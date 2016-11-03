@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel='stylesheet' href='/stylesheets/animate.min.css' />
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-    <script type="text/javascript" src="/javascripts/lib/requireJS/requireJS.js"></script>
+    <script type="text/javascript" data-main="/javascripts/manager/requireConf.js"  src="/javascripts/lib/requireJS/requireJS.js"></script>
   </head>
   <body>
     <div id="app">
@@ -25,40 +25,6 @@
       <router-view></router-view>
     </div>
 
-<script type="text/javascript">
-    requirejs.config({
-      baseUrl: '/',
-      paths: {
-          text: 'javascripts/lib/requireJS/requireJS-text',
-          vue: 'javascripts/lib/vue/vue',
-          vueRouter: 'javascripts/lib/vue/vue-router/vue-router',
-          vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
-          vuex: 'javascripts/lib/vue/vuex/vuex',
-          logger: 'javascripts/lib/vue/vuex/logger',
 
-          index: 'javascripts/manager/index',
-          mainRouter: 'javascripts/manager/mainRouter',
-          
-          store: 'javascripts/manager/vuexStore/store',
-          getters: 'javascripts/manager/vuexStore/getters',
-          mutations: 'javascripts/manager/vuexStore/mutations',
-          actions: 'javascripts/manager/vuexStore/actions',
-
-          homeRouter: 'components/manager/home/homeRouter',
-          busiRouter: 'components/manager/busi/busiRouter',
-          customRouter: 'components/manager/custom/customRouter',
-
-          homeModule: 'components/manager/home/homeModule',
-          busiModule: 'components/manager/busi/busiModule',
-          customModule: 'components/manager/custom/customModule',
-
-          oneModule: 'components/manager/home/children/one/oneModule',
-          twoModule: 'components/manager/home/children/two/twoModule'
-
-
-      }
-    });
-    require(['text','index']);
-</script>
   </body>
 </html>
