@@ -13,6 +13,10 @@ define(function(require){
  Vue.use(VueRouter);
  Vue.use(vueResource);
 
+ // Vue.config.devtools = true
+ Vue.config.errorHandler = function (err, vm) {
+   // 错误拦截器
+ }
 /*
 * 应用全局状态树
 */
