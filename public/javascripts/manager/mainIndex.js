@@ -2,6 +2,7 @@ define(function(require){
   'use strict'
   var Vue = require('vue');
   var Vuex = require('vuex');
+  var createLogger = require('logger');
   var VueRouter = require('vueRouter');
   var vueResource = require('vueResource');
 
@@ -16,7 +17,8 @@ define(function(require){
 * 应用全局状态树
 */
 const vuexStore= new Vuex.Store({
-     modules: mainModules
+     modules: mainModules,
+     plugins: [createLogger()]
  });
 
  /*

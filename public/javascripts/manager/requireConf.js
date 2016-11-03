@@ -1,41 +1,6 @@
 
-(function(require,factory,win){
-  var pathMods=factory();
-  //pathMods 层级对象抹平，最多支持三级对象属性
-  var path={};
-  for(let attr in pathMods){
-    if(typeof pathMods[attr]==='string'){
-      path[attr]=pathMods[attr];
-    }else if(typeof pathMods[attr]==='object'){
-        for(let att in pathMods[attr]){
-            if(typeof pathMods[attr][att]==='object' ){
-                  for(let at in pathMods[attr][att]){
-                    path[attr+'.'+att+'.'+at]=pathMods[attr][att][at];
-                    if(typeof pathMods[attr][att][at]==='object')return alert('警告require配置对象不能有三级对象属性');
-                  }
-            }else{
-              path[attr+'.'+att]=pathMods[attr][att];
-            }
-        }
-    }
-  }
-
-  requirejs.config({
-    baseUrl: '/',
-    paths: path
-  });
-  require(['text','mainIndex']);
-
-  win.logPath=function(pwd,conf){
-      if(pwd!==123456)return;
-      for(let ins in path){
-        if(conf){
-          if(ins.indexOf(conf)>-1)console.log(ins,':',path[ins]);
-        }else{
-          console.log(ins,':',path[ins]);
-        }
-      }
-    }
+(function(require,factory,win,fn){
+  fn(factory(),win);
 })(require,function(){
 'use strict';
  return {
@@ -93,6 +58,40 @@
  };
 
 
+},window,function(pathMods,win){
+  //pathMods 层级对象抹平，最多支持三级对象属性
+  var path={};
+  for(let attr in pathMods){
+    if(typeof pathMods[attr]==='string'){
+      path[attr]=pathMods[attr];
+    }else if(typeof pathMods[attr]==='object'){
+        for(let att in pathMods[attr]){
+            if(typeof pathMods[attr][att]==='object' ){
+                  for(let at in pathMods[attr][att]){
+                    path[attr+'.'+att+'.'+at]=pathMods[attr][att][at];
+                    if(typeof pathMods[attr][att][at]==='object')return alert('警告require配置对象不能有三级对象属性');
+                  }
+            }else{
+              path[attr+'.'+att]=pathMods[attr][att];
+            }
+        }
+    }
+  }
 
+  requirejs.config({
+    baseUrl: '/',
+    paths: path
+  });
+  require(['text','mainIndex']);
 
-},window);
+  win.logPath=function(pwd,conf){
+      if(pwd!==123456)return;
+      for(let ins in path){
+        if(conf){
+          if(ins.indexOf(conf)>-1)console.log(ins,':',path[ins]);
+        }else{
+          console.log(ins,':',path[ins]);
+        }
+      }
+    }
+});
