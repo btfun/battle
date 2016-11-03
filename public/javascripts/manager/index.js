@@ -4,17 +4,33 @@ define(function(require){
   var Vuex = require('vuex');
   var VueRouter = require('vueRouter');
   var vueResource = require('vueResource');
+
   var mainRouter = require('mainRouter');//主路由文件
-  var store = require('vuexStore');//挂载store
+  var store = require('store');
+  var getters = require('getters');
+  var mutations = require('mutations');
+  var actions = require('actions');
 
-
+ Vue.use(Vuex);
  Vue.use(VueRouter);
  Vue.use(vueResource);
 
+/*
+* 应用全局状态树
+*/
+const vuexStore= new Vuex.Store({
+     state: store, //共用数据状态
+     getters: getters, // 共用属性计算存放，其他子组件使用this.$store.getters.doneTodosCount
+     mutations: mutations, //共用方法 Mutation 必须是同步事务
+     actions: actions
+ });
 
- var router = new VueRouter({
-   routes: mainRouter
- })
+ /*
+ * 应用路由
+ */
+const routers = new VueRouter({
+      routes: mainRouter
+ });
 
  router.beforeEach((to, from, next) => {
    console.log(to.path)
@@ -25,11 +41,9 @@ define(function(require){
  // 记得要通过 router 配置参数注入路由，
  // 从而让整个应用都有路由功能
  const app = new Vue({
-   router: router,
-   store: store
- }).$mount('#app')
- // 现在，应用已经启动了！
-
+   router: routers,
+   store: vuexStore
+ }).$mount('#app');
 
 
 });
