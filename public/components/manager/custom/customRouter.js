@@ -11,7 +11,7 @@ const UserProfile = {
 
 
   return { path: '/custom',
-      component: resolve => require(['customModule'], resolve),
+      component: resolve => require(['custom.customModule'], resolve),
       children: [
         {
           path: '',
@@ -20,5 +20,5 @@ const UserProfile = {
       ]
     }
 
- 
+
 });
