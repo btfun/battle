@@ -10,6 +10,9 @@ var users = require('./routes/users');
 
 var app = express();
 
+let webpackconfig = require('./config/webpack.dev.config');
+webpackconfig(app)
+
 // view engine setup
 app.engine('.html', require('ejs').__express);
 app.set('views', path.join(__dirname, 'views'));

@@ -3,6 +3,7 @@
   fn(factory(),win);
 })(require,function(){
 'use strict';
+//控制台输入 logPath('123456','searchKeys')查看对应的链接
  return {
    //////////////////lib///////////////////
    text:        'javascripts/lib/requireJS/requireJS-text',
@@ -21,7 +22,7 @@
      homeModule: 'components/manager/home/homeModule',
 
      module: 'components/manager/home/hStore/module',
-     store: 'components/manager/home/hStore/store',
+     store:  'components/manager/home/hStore/store',
      getters: 'components/manager/home/hStore/getters',
      mutations: 'components/manager/home/hStore/mutations',
      actions: 'components/manager/home/hStore/actions',

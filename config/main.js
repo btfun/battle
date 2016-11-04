@@ -15,10 +15,11 @@ module.exports = {
         filename: 'bundle.js'
     },
     devtool: '#source-map',
+    //热重载插件
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.NoErrorsPlugin(),
         new HtmlWebpackPlugin({
               template: '../views/index.html'
             })
