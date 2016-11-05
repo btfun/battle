@@ -1,14 +1,17 @@
 var webpack = require("webpack");
 var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: ['./src/main.js'],
+  context: __dirname,
+  //页面入口文件配置
+  // entry: ['./public/javascripts/manager/requireConf.js'],
+  //入口文件输出配置
   output: {
     path: path.resolve(__dirname, 'dist/'),
     filename: '[name].[hash].js',
   },
   module: {
+    //加载器配置
     rules:[
       {
         test: /\.js/,
@@ -19,8 +22,8 @@ module.exports = {
         }
       },
       {
-        test: /\.vue/,
-        loader: 'vue',
+        test: /\.css$/,
+        loader: 'style!css!autoprefixer?{browsers:["last 2 version", "> 1%"]}'
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -31,10 +34,13 @@ module.exports = {
       }
     ]
   },
+  //其它解决方案配置
   resolve: {
+    fallback: path.join(__dirname, "node_modules"),
     extensions: ['.vue','.js', 'json', ' '],
     alias: {
       'components': './src/',
     }
   },
+  resolveLoader: { fallback: path.join(__dirname, "node_modules") }
 }

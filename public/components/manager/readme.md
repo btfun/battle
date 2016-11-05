@@ -1,3 +1,5 @@
+gulp
+ES6 不支持 需要babel 转码
 
 组件模块目录约定
 home

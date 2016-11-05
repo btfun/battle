@@ -32,10 +32,10 @@ const routers = new VueRouter({
       routes: mainRouter
  });
 
- routers.beforeEach((to, from, next) => {
-   console.log(to.path)
-   next()
- })
+ // routers.beforeEach((to, from, next) => {
+ //   console.log(to.path)
+ //   next()
+ // })
 
  // 4. 创建和挂载根实例。
  // 记得要通过 router 配置参数注入路由，

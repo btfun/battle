@@ -11,7 +11,7 @@ let devOption = {
   entry: {
     app:[
     // 'webpack-hot-middleware/client',
-    './public/javascripts/manager/requireConf.js'
+    './public/javascripts/manager/mainIndex.js'
     ]
   },
   output: {
@@ -30,51 +30,29 @@ let devOption = {
   ],
   module: {
     //加载器配置
-    rules:[
+    loaders:[
       {
         test: /\.js$/,
         loader: 'babel',
-        exclude: /node_modules/,
+        exclude: /node_modules|vendor|bootstrap/,
         options: {
           presets: 'es2015',
         }
       },
       {
         test: /\.css$/,
+        exclude: /node_modules|vendor|bootstrap/,
         loader: 'style!css!autoprefixer?{browsers:["last 2 version", "> 1%"]}'
-      },
-      {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
       }
+
     ]
   },
   //其它解决方案配置
-  resolve: {
-    fallback: path.join(__dirname, "node_modules"),
-    extensions: ['.vue','.js', 'json', ' ']
-  },
+  // resolve: {
+  //   fallback: path.join(__dirname, "node_modules"),
+  //   extensions: ['.vue','.js', 'json', ' ']
+  // },
   resolveLoader: { fallback: path.join(__dirname, "node_modules") }
 }
 
-
-module.exports = function(app){
-// let webpackconfig = Object.assign({}, baseConfig, devOption);// console.log(webpackconfig);
-let webpackconfig = Object.assign({},  devOption);// console.log(webpackconfig);
-
-var compiler = webpack(webpackconfig);
-//console.log(compiler);
-
-app.use(devMiddleWare(compiler,{
-  publicPath: webpackconfig.output.publicPath,
-  stats: {
-    colors: true,
-    chunks: false
-  }
-}));
-app.use(hotMiddleWare(compiler));
-  return app;
-}
+module.exports=devOption
