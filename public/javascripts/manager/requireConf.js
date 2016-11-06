@@ -60,6 +60,7 @@
 
 
 },window,function(pathMods,win){
+  'use strict';
   //pathMods 层级对象抹平，最多支持三级对象属性
   var path={};
   for(var attr in pathMods){
@@ -87,11 +88,11 @@
 
   win.logPath=function(pwd,conf){
       if(pwd!==123456)return;
-      for(var ins in path){
+      for( ins in path){
         if(conf){
           if(ins.indexOf(conf)>-1)console.log(ins,':',path[ins]);
         }else{
-          console.log(ins,':',path[ins]);
+          console.log(ins,':',path[ins];
         }
       }
     }
