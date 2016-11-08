@@ -1,6 +1,6 @@
 .settings/
 .DS_Store
-target/
+dist/
 *.iml
 logs/
 node_modules/

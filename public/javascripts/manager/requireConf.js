@@ -63,13 +63,13 @@
   'use strict';
   //pathMods 层级对象抹平，最多支持三级对象属性
   var path={};
-  for(var attr in pathMods){
+  for(let attr in pathMods){
     if(typeof pathMods[attr]==='string'){
       path[attr]=pathMods[attr];
     }else if(typeof pathMods[attr]==='object'){
-        for(var att in pathMods[attr]){
+        for(let att in pathMods[attr]){
             if(typeof pathMods[attr][att]==='object' ){
-                  for(var at in pathMods[attr][att]){
+                  for(let at in pathMods[attr][att]){
                     path[attr+'.'+att+'.'+at]=pathMods[attr][att][at];
                     if(typeof pathMods[attr][att][at]==='object')return alert('警告require配置对象不能有三级对象属性');
                   }
@@ -79,6 +79,7 @@
         }
     }
   }
+
 
   requirejs.config({
     baseUrl: '/',
