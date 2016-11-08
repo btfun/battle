@@ -92,7 +92,7 @@
         if(conf){
           if(ins.indexOf(conf)>-1)console.log(ins,':',path[ins]);
         }else{
-          console.log(ins,':',path[ins];
+          console.log(ins,':',path[ins]);
         }
       }
     }
