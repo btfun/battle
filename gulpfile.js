@@ -3,43 +3,53 @@ var  gulp = require('gulp'),
      uglify = require('gulp-uglify'),//js压缩仅支持es5写法
      changed = require('gulp-changed'),//只通过改变的文件
      minifycss = require('gulp-minify-css'),//css压缩
-    //  sass = require('gulp-sass'),//编译sass
+     minifyhtml = require('gulp-htmlmin'),//压缩html
      concat = require('gulp-concat'),//合并文件 css使用
      autoprefixer = require('gulp-autoprefixer'),//CSS浏览器前缀补全
      imagemin = require('gulp-imagemin'),//图片压缩
+     imageminPngquant = require('imagemin-pngquant'),
+     imageminJpegtran = require('imagemin-jpegtran'),
+     cache = require('gulp-cache'),
      rename = require('gulp-rename'),//重命名
      watch = require('gulp-watch'),//重命名
      del = require('del'),//删除
      eslint=require('gulp-eslint');//语法检查
-// var $ = require('gulp-load-plugins')();
+
+var browserSync = require('browser-sync').create();
+var nodemon = require('gulp-nodemon');
+var reload      = browserSync.reload;
+
 
 var paths = {
+        path:'public/',
        styles: {
-         src: 'public/components/**/*.scss',
-         dest: 'dist/css/'
+         src: 'public/components/**/*.css',
+         dest: 'dist/css'
+       },
+       tmpls: {
+         src: 'public/components/**/*.html',
+         dest: 'dist/html'
        },
        scripts: {
          src: 'public/**/*.js',
-         dest: 'dist/scripts/'
+         dest: 'dist/scripts'
        },
        images:{
-         src: ['public/**/*.png','public/**/*.jpg','public/**/*.svg'],
-         dest: 'dist/images/'
+         src: 'public/**/*.{png,jpg,gif,ico}',
+         dest: 'dist/images'
        }
      };
 
 
 //css 编译压缩
-gulp.task('sass', function(){
+gulp.task('minifycss', function(){
     return gulp.src(paths.styles.src)
-    .pipe( watch(paths.styles.src) )   //监听gulp.watch不能监听新增文件
-    // .pipe( sass().on('error', function(e){ console.error('【sass】错误信息:',e); }) )  //编译sass
-    .pipe( autoprefixer() )  //添加浏览器前缀
-    .pipe( gulp.dest(paths.styles.dest) )
+    .pipe( autoprefixer('last 2 versions', '> 1%', 'ie 8', 'Android 2') )  //添加浏览器前缀
     .pipe( minifycss() ) //执行压缩
-    .pipe(concat('all.js'))
+    .pipe(concat('all.css'))
     .pipe( rename({suffix: '.min'}) )   //rename压缩后的文件名
-    .pipe( gulp.dest(paths.styles.dest) ); //输出文件夹
+    .pipe( gulp.dest(paths.styles.dest) ) //输出文件夹
+    .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
 });
 
 //js压缩
@@ -53,28 +63,68 @@ gulp.task('minifyjs', function() {
         .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
         .pipe( rename({suffix: '.min'}))   //rename压缩后的文件名
         .pipe( uglify().on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
-        .pipe( gulp.dest(paths.scripts.dest));  //输出
+        .pipe( gulp.dest(paths.scripts.dest))  //输出
+        .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
 });
 
-
+gulp.task('minifyhtml', function() {
+  return gulp.src(paths.tmpls.src)
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest(paths.tmpls.dest))
+    .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
+});
 
 //图片压缩
 gulp.task('images', function() {
+
   return gulp.src(paths.images.src)
-    .pipe(imagemin({optimizationLevel: 2}))
+    .pipe(cache(imagemin({
+            optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
+            progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
+            svgoPlugins: [{removeViewBox: false}],//不要移除svg的viewbox属性
+            use: [imageminPngquant(),imageminJpegtran()] //使用pngquant深度压缩png图片的imagemin插件
+        })))
     .pipe(gulp.dest(paths.images.dest));
+
 });
 
+// 静态服务器 + 监听 scss/html 文件
+gulp.task('server', ['nodemon'], function() {
+
+  browserSync.init( {
+    proxy: 'http://localhost:3000',
+    files: ['./views/**/*.*', './dist/**/*.*','./public/**/*.*'],
+    browser: 'chrome',
+    notify: false,
+    port: 3000
+  });
+
+});
+
+gulp.task('nodemon', function (cb) {
+
+  var called = false;
+  return nodemon({
+      script: './bin/www'
+    }).on('start', function () {
+      if (!called) {
+        cb();
+        called = true;
+      }
+    });
+});
 
 
 gulp.task('clean', function() {
-  return del(['build']);
+  return del(['dist']);
 });
 
-gulp.task('default', ['clean'],function() {
+gulp.task('default', ['server'], function() {
   // 将你的默认的任务代码放在这 'sass','minifyjs',
-    gulp.start('images');
-    // gulp.watch('public/components/**/*.css', function(){
-    //        gulp.run('minifycss');
-    //    });
+    // gulp.start('less');
+
+    // gulp.watch([paths.styles.src],  ['minifycss']);
+    // gulp.watch([paths.scripts.src], ['minifyjs']);
+    // gulp.watch([paths.tmpls.src], ['minifyhtml']);
+
 });
