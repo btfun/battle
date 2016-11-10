@@ -1,21 +1,18 @@
 # battle
 
-一个人无聊的时候建立的，期望懒到爆炸的人跟我一块建立一个懒人脚手架
+前端开发工作流
 
-集成vue2.0 全家桶
-
-自动化构建 
+1 集成vue2.0 全家桶
+2 gulp自动化构建
+3 服务端渲染（待完善）
 
 ## Build Setup
 ``` bash
 # install dependencies  test
 npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
+# auto open chrome
+gulp
 
 # run unit tests
 npm run unit

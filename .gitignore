@@ -1,4 +1,11 @@
 dist/
 *.iml
 logs/
+config/
+conf/
 node_modules/
+
+routes/manager/
+routes/util/
+HomeRoute.js
+ThreeLoginRoute.js

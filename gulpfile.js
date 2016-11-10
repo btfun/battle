@@ -2,6 +2,7 @@ var  gulp = require('gulp'),
      babel = require('gulp-babel'),//es6转es5
      uglify = require('gulp-uglify'),//js压缩仅支持es5写法
      minifycss = require('gulp-minify-css'),//css压缩
+     less = require('gulp-less'),//编译less
      minifyhtml = require('gulp-htmlmin'),//压缩html
      concat = require('gulp-concat'),//合并文件 css使用
      autoprefixer = require('gulp-autoprefixer'),//CSS浏览器前缀补全
@@ -13,6 +14,9 @@ var  gulp = require('gulp'),
      rename = require('gulp-rename'),//重命名
      watch = require('gulp-watch'),//监听
      del = require('del'),//删除
+     notify = require('gulp-notify'),
+     plumber = require('gulp-plumber'),
+     sourcemaps = require('gulp-sourcemaps'),
      eslint=require('gulp-eslint');//语法检查
 
 var browserSync = require('browser-sync').create();
@@ -23,8 +27,9 @@ var reload      = browserSync.reload;
 var paths = {
        path:'public/',
        styles: {
-         src:    'public/components/**/*.css',//组件样式，需合并
+         src:    'public/components/**/*.{css,less}',//组件样式，需合并
          dest:   'build/stylesheets/manager',
+
          libSrc: 'public/stylesheets/lib/**/*.css',
          libTo:  'build/stylesheets/lib'
        },
@@ -52,9 +57,12 @@ var paths = {
 //css 编译压缩
 gulp.task('minifycss', function(){
     return gulp.src(paths.styles.src)
-    .pipe( autoprefixer('last 2 versions', '> 1%', 'ie 8', 'Android 2') )  //添加浏览器前缀
+    .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+    .pipe( less())
+    .pipe( sourcemaps.write())
+    .pipe( autoprefixer('last 2 versions', '> 1%', 'ie 8', 'Android >=4.0') )  //添加浏览器前缀
     .pipe( minifycss() ) //执行压缩
-    .pipe(concat('all.css'))
+    .pipe( concat('all.css'))
     .pipe( rename({suffix: '.min'}) )   //rename压缩后的文件名
     .pipe( gulp.dest(paths.styles.dest) ) //输出文件夹
     .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新

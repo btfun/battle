@@ -1,4 +1,5 @@
 .fsfdsfsd{display:block}
 
-.de{display:block}.div{display:-ms-flexbox;display:flex}
-span{background-color:#ccc}
+.de{display:block}
+.box{color:#ff32ac;border-color:#fdcdea}.box div{box-shadow:0 0 5px rgba(0,0,0,.3)}
+.spanone,span{background-color:#ccc}
