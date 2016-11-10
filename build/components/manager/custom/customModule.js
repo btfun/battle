@@ -1,1 +1,1 @@
-"use strict";define(function(t){return{template:t("text!components/manager/custom/customTmpl.html"),data:function(){return{msg:123,age:20}}}});
+"use strict";define(function(require){return{template:require("text!components/manager/custom/customTmpl.html"),data:function(){return{msg:123,age:20}}}});

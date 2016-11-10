@@ -1,1 +1,1 @@
-"use strict";define(function(n){return{path:"/",component:function(o){return n(["home.homeModule"],o)},children:[{path:"one",component:function(o){return n(["home.oneModule"],o)}},{path:"two",component:function(o){return n(["home.twoModule"],o)}}]}});
+"use strict";define(function(require){return{path:"/",component:function(n){return require(["home.homeModule"],n)},children:[{path:"one",component:function(n){return require(["home.oneModule"],n)}},{path:"two",component:function(n){return require(["home.twoModule"],n)}}]}});

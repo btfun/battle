@@ -1,1 +1,1 @@
-"use strict";define(function(n){return{increment:function(n){n.count++}}});
+"use strict";define(function(require){return{increment:function(n){n.count++}}});

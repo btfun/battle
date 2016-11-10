@@ -1,1 +1,1 @@
-"use strict";define(function(u){return{home:u("home.module"),custom:u("custom.module"),busi:u("busi.module")}});
+"use strict";define(function(require){return{home:require("home.module"),custom:require("custom.module"),busi:require("busi.module")}});

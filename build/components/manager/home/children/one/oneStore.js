@@ -1,1 +1,1 @@
-"use strict";define(function(e){return{home:"home-parent"}});
+"use strict";define(function(require){return{home:"home-parent"}});

@@ -1,1 +1,1 @@
-"use strict";define(function(e){var n={template:'\n    <div class="user">\n      <h2>User {{ $route.params.id }}</h2>\n      <router-view></router-view>\n    </div>\n  '};return{path:"/busi",component:function(n){return e(["busi.busiModule"],n)},children:[{path:"",component:n}]}});
+"use strict";define(function(require){var e={template:'\n    <div class="user">\n      <h2>User {{ $route.params.id }}</h2>\n      <router-view></router-view>\n    </div>\n  '};return{path:"/busi",component:function(e){return require(["busi.busiModule"],e)},children:[{path:"",component:e}]}});

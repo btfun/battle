@@ -1,1 +1,1 @@
-"use strict";define(function(t){var s=t("busi.store"),i=t("busi.getters"),e=t("busi.mutations"),u=t("busi.actions");return{state:s,getters:i,mutations:e,actions:u}});
+"use strict";define(function(require){var t=require("busi.store"),s=require("busi.getters"),i=require("busi.mutations"),e=require("busi.actions");return{state:t,getters:s,mutations:i,actions:e}});

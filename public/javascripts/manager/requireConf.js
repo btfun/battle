@@ -89,7 +89,7 @@
 
   win.logPath=function(pwd,conf){
       if(pwd!==123456)return;
-      for( ins in path){
+      for(var ins in path){
         if(conf){
           if(ins.indexOf(conf)>-1)console.log(ins,':',path[ins]);
         }else{

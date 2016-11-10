@@ -11,7 +11,7 @@ var  gulp = require('gulp'),
      cache = require('gulp-cache'),
      changed = require('gulp-changed'),//只通过改变的文件
      rename = require('gulp-rename'),//重命名
-     watch = require('gulp-watch'),//重命名
+     watch = require('gulp-watch'),//监听
      del = require('del'),//删除
      eslint=require('gulp-eslint');//语法检查
 
@@ -69,26 +69,15 @@ gulp.task('copycsslib',function(){
   return gulp.src(paths.styles.libSrc)
         .pipe( gulp.dest(paths.styles.libTo));
 })
+//非组件脚本复制
 gulp.task('minifygolbaljs', function(){
   return gulp.src(paths.scripts.golablSrc)
       .pipe( changed(paths.scripts.golablSrc))//通过改变的文件
       .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
-      .pipe( eslint({
-        rules: {
-          'strict': 0
-        },
-        globals: [
-            'jQuery',
-            '$',
-            'Vue'
-        ],
-        envs: [
-            'browser'
-        ]
-      })) //语法检查
-      .pipe( eslint.format())
-      .pipe( eslint.failAfterError())
-      .pipe( uglify().on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
+      // .pipe( eslint()) //语法检查
+      // .pipe( eslint.format())
+      // .pipe( eslint.failAfterError())
+      .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']} } ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
       .pipe( gulp.dest(paths.scripts.golablTo))  //输出
       .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
 });
@@ -96,23 +85,12 @@ gulp.task('minifygolbaljs', function(){
 gulp.task('minifyjs', function() {
     return gulp.src(paths.scripts.src)
         .pipe( changed(paths.scripts.src))//通过改变的文件
-        .pipe( watch(paths.scripts.src) )   //监听gulp.watch不能监听新增文件
+        // .pipe( watch(paths.scripts.src) )   //监听gulp.watch不能监听新增文件
         .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
-        .pipe( eslint({
-          rules: {
-            'strict': 1
-          },
-          globals: [
-              'jQuery',
-              '$'
-          ],
-          envs: [
-              'browser'
-          ]
-        })) //语法检查
-        .pipe( eslint.format())
-        .pipe( eslint.failAfterError())
-        .pipe( uglify().on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
+        // .pipe( eslint()) //语法检查
+        // .pipe( eslint.format())
+        // .pipe( eslint.failAfterError())
+        .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']}} ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
         .pipe( gulp.dest(paths.scripts.dest))  //输出
         .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
 });
@@ -138,12 +116,12 @@ gulp.task('images', function() {
 
 });
 
-// 静态服务器 + 监听 scss/html 文件
-gulp.task('server', ['nodemon'], function() {
+// 静态服务器 + 监听 文件 , './build/**/*.*'
+gulp.task('server',['nodemon'], function() {
 
   browserSync.init({
     proxy: 'http://localhost:3000',
-    files: ['./views/**/*.*', './build/**/*.*'],
+    files: ['./views/**/*.*'],
     browser: 'chrome',
     notify: false,
     port: 8888
@@ -152,7 +130,6 @@ gulp.task('server', ['nodemon'], function() {
 });
 
 gulp.task('nodemon', function (cb) {
-
   var called = false;
   return nodemon({
       script: './bin/www'
@@ -168,10 +145,10 @@ gulp.task('clean', function() {
 
 gulp.task('default', ['clean','copycsslib','copyjslib','server'], function() {
   // 将你的默认的任务代码放在这 'sass','minifyjs',
-    gulp.start('minifygolbaljs','minifycss','minifyjs','minifyhtml');
+    gulp.run('minifygolbaljs','minifycss','minifyjs','minifyhtml');
 
-    // gulp.watch([paths.styles.src],  ['minifycss']);
-    // gulp.watch([paths.scripts.src], ['minifyjs']);
-    // gulp.watch([paths.tmpls.src], ['minifyhtml']);
+    gulp.watch([paths.styles.src],  ['minifycss']);
+    gulp.watch([paths.scripts.src], ['minifyjs']);
+    gulp.watch([paths.tmpls.src], ['minifyhtml']);
 
 });

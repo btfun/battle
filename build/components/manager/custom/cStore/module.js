@@ -1,1 +1,1 @@
-"use strict";define(function(t){var s=t("custom.store"),e=t("custom.getters"),o=t("custom.mutations"),u=t("custom.actions");return{state:s,getters:e,mutations:o,actions:u}});
+"use strict";define(function(require){var t=require("custom.store"),s=require("custom.getters"),e=require("custom.mutations"),o=require("custom.actions");return{state:t,getters:s,mutations:e,actions:o}});

@@ -1,1 +1,1 @@
-"use strict";define(function(u){var e=[u("home.homeRouter"),u("busi.busiRouter"),u("custom.customRouter")];return e});
+"use strict";define(function(require){var u=[require("home.homeRouter"),require("busi.busiRouter"),require("custom.customRouter")];return u});

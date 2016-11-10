@@ -1,1 +1,1 @@
-"use strict";define(function(e){return{}});
+"use strict";define(function(require){return{}});
