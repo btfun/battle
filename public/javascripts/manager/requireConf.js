@@ -5,7 +5,7 @@
 'use strict';
 //控制台输入 logPath('123456','searchKeys')查看对应的链接
  return {
-   //////////////////lib///////////////////
+   //////////////////lib///////////////
    text:        'javascripts/lib/requireJS/requireJS-text',
    vue:         'javascripts/lib/vue/vue',
    vueRouter:   'javascripts/lib/vue/vue-router/vue-router',

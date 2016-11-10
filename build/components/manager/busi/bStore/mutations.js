@@ -1,0 +1,1 @@
+"use strict";define(function(n){return{increment:function(n){n.count++}}});

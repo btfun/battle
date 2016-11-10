@@ -1,0 +1,1 @@
+"use strict";define(function(e){var t={template:'\n    <div class="user">\n      <h2>User {{ $route.params.id }}</h2>\n      <router-view></router-view>\n    </div>\n  '};return{path:"/custom",component:function(t){return e(["custom.customModule"],t)},children:[{path:"",component:t}]}});

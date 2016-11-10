@@ -1,0 +1,1 @@
+"use strict";define(function(t){return{template:t("text!components/manager/home/homeTmpl.html"),data:function(){return{msg:123e7,age:20}},computed:{count:function(){return this.$store.state.count}},watch:{},methods:{goo:function(){this.$router.push({path:"/busi"})}}}});

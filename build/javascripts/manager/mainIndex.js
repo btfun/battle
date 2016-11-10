@@ -1,0 +1,1 @@
+"use strict";define(function(e){var u=e("vue"),r=e("vuex"),o=e("logger"),n=e("vueRouter"),s=e("vueResource"),t=e("mainRouter"),i=e("mainModules");u.use(r),u.use(n),u.use(s),u.config.errorHandler=function(e,u){};var a=new r.Store({modules:i,plugins:[o()]}),v=new n({routes:t});new u({router:v,store:a}).$mount("#app")});
