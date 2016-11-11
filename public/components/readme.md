@@ -1,7 +1,12 @@
-gulp
-ES6 不支持 需要babel 转码
 
 组件模块目录约定
+
+global---公用组件文件夹
+----layout 布局组件文件夹
+    ----header 对应组件文件夹
+    ----footer 对应组件文件夹
+
+
 home
 ----children 子组件文件夹
      ----one 对应组件文件夹
@@ -12,6 +17,7 @@ home
 ----xxxxRouter 组件路由文件
 ----xxxxModule 该模块的顶级父组件文件
 ----xxxx_style.css 该组件的共用CSS文件
+
 
 
 
