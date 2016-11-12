@@ -1,8 +1,9 @@
 define(function(require){
   'use strict'
-
-// store 应用主模块 注册组件的主模块
-
+/*
+* store 应用主模块 注册组件的主模块
+* 应用全局状态集合
+*/
 
 return {
   home: require('home.module'), //home 模块状态组件

@@ -1,1 +1,1 @@
-"use strict";define(function(require){return{template:require("text!components/manager/home/children/two/twoTmpl.html"),data:function(){return{msg:123,age:20}},watch:{msg:function(t){console.log(t)}},methods:{goo:function(){this.$router.push({path:"/busi"})}}}});
+"use strict";define(function(require){return{template:require("text!components/manager/home/children/two/twoTmpl.html"),data:function(){return{msg:123,age:20}},beforeCreate:function(){},created:function(){},watch:{msg:function(t){console.log(t)}},methods:{goo:function(){this.$router.push({path:"/busi"})}}}});

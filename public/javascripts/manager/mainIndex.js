@@ -1,5 +1,9 @@
 define(function(require){
   'use strict'
+ /*
+  * 全局使用函数
+  *
+  */
   var Vue = require('vue');
   var Vuex = require('vuex');
   var createLogger = require('logger');
@@ -12,6 +16,24 @@ define(function(require){
  Vue.use(Vuex);
  Vue.use(VueRouter);
  Vue.use(vueResource);
+
+ // Vue.http.options.root = '/root';
+ // Vue.http.options.emulateJSON = true;
+ // Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk';
+
+ Vue.http.interceptors.push((request, next) => {
+         // ...
+         // 请求发送前的处理逻辑
+         // ...
+         console.log('request',request);
+     next((response) => {
+       if(!response.ok){
+         //response.status
+          alert('请求异常')
+       }
+         return response
+     })
+ });
 
  // Vue.config.devtools = true
  Vue.config.errorHandler = function (err, vm) {
@@ -32,10 +54,10 @@ const routers = new VueRouter({
       routes: mainRouter
  });
 
- // routers.beforeEach((to, from, next) => {
- //   console.log(to.path)
- //   next()
- // })
+ routers.beforeEach((to, from, next) => {
+   console.log(to.path)
+   next()
+ })
 
  // 4. 创建和挂载根实例。
  // 记得要通过 router 配置参数注入路由，

@@ -15,6 +15,7 @@ var  gulp = require('gulp'),
      watch = require('gulp-watch'),//监听
      del = require('del'),//删除
      notify = require('gulp-notify'),
+     debug = require('gulp-debug'),
      plumber = require('gulp-plumber'),
      sourcemaps = require('gulp-sourcemaps'),
      eslint=require('gulp-eslint');//语法检查
@@ -57,6 +58,8 @@ var paths = {
 //css 编译压缩
 gulp.task('minifycss', function(){
     return gulp.src(paths.styles.src)
+    .pipe( changed(paths.styles.dest,{extension: '.min.css'}))//通过改变的文件
+    .pipe( debug({title: '编译css:'}))
     .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
     .pipe( less())
     .pipe( sourcemaps.write())
@@ -80,7 +83,7 @@ gulp.task('copycsslib',function(){
 //非组件脚本复制
 gulp.task('minifygolbaljs', function(){
   return gulp.src(paths.scripts.golablSrc)
-      .pipe( changed(paths.scripts.golablSrc))//通过改变的文件
+      .pipe( changed(paths.scripts.golablTo))//通过改变的文件
       .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
       // .pipe( eslint()) //语法检查
       // .pipe( eslint.format())
@@ -92,7 +95,8 @@ gulp.task('minifygolbaljs', function(){
 //js压缩
 gulp.task('minifyjs', function() {
     return gulp.src(paths.scripts.src)
-        .pipe( changed(paths.scripts.src))//通过改变的文件
+        .pipe( changed(paths.scripts.dest))//通过改变的文件
+        .pipe( debug({title: '编译js:'}))
         // .pipe( watch(paths.scripts.src) )   //监听gulp.watch不能监听新增文件
         .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
         // .pipe( eslint()) //语法检查
@@ -150,8 +154,8 @@ gulp.task('nodemon', function (cb) {
 gulp.task('clean', function() {
   return del(['build/components/*','build/javascripts/manager/*','build/stylesheets/manager/*']);
 });
-
-gulp.task('default', ['clean','copycsslib','copyjslib','server'], function() {
+//'clean',
+gulp.task('default', ['copycsslib','copyjslib','server'], function() {
   // 将你的默认的任务代码放在这 'sass','minifyjs',
     gulp.run('minifygolbaljs','minifycss','minifyjs','minifyhtml');
 

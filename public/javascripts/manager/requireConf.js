@@ -1,18 +1,17 @@
-
 (function(require,factory,win,fn){
   fn(factory(),win);
 })(require,function(){
 'use strict';
 //控制台输入 logPath('123456','searchKeys')查看对应的链接
  return {
-   //////////////////lib///////////////
+   //////////////////lib//////////////////////
    text:        'javascripts/lib/requireJS/requireJS-text',
    vue:         'javascripts/lib/vue/vue',
    vueRouter:   'javascripts/lib/vue/vue-router/vue-router',
    vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
    vuex:        'javascripts/lib/vue/vuex/vuex',
    logger:      'javascripts/lib/vue/vuex/logger',
-   //////////////////主入口///////////////////
+   //////////////////主入口/////////////////////
    mainIndex:   'javascripts/manager/mainIndex',
    mainRouter:  'javascripts/manager/mainRouter',
    mainModules: 'javascripts/manager/mainModules',
@@ -20,6 +19,7 @@
    home:{
      homeRouter: 'components/manager/home/homeRouter',
      homeModule: 'components/manager/home/homeModule',
+    //  homeTmpl:'components/manager/home/homeTmpl.html',
 
      module: 'components/manager/home/hStore/module',
      store:  'components/manager/home/hStore/store',

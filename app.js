@@ -7,8 +7,8 @@ var template = require('art-template');
 var os = require('os');
 var app = express();
 
-var logger=require('./routes/util/logUtil').logger;
-var emailUtil = require('./routes/util/emailUtil');
+// var logger=require('./routes/util/logUtil').logger;
+// var emailUtil = require('./routes/util/emailUtil');
 
 // 视图引擎设置
 template.config('base', '');
