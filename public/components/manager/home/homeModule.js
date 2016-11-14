@@ -3,6 +3,7 @@ define(function(require){
 /*
 *home 组件的顶级模块
 */
+ 
 
 return  {
     template: require('text!components/manager/home/homeTmpl.html'),

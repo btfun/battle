@@ -18,7 +18,8 @@ var  gulp = require('gulp'),
      debug = require('gulp-debug'),
      plumber = require('gulp-plumber'),
      sourcemaps = require('gulp-sourcemaps'),
-     eslint=require('gulp-eslint');//语法检查
+     jshint=require('gulp-jshint'),//语法检查
+     eslint=require('gulp-eslint');
 
 var browserSync = require('browser-sync').create();
 var nodemon = require('gulp-nodemon');
@@ -50,7 +51,7 @@ var paths = {
        },
        images:{
          src: 'public/components/**/*.{png,jpg,gif,ico}',
-         dest: 'build/stylesheets/images'
+         dest: 'build/stylesheets/manager'
        }
      };
 
@@ -84,8 +85,11 @@ gulp.task('copycsslib',function(){
 gulp.task('minifygolbaljs', function(){
   return gulp.src(paths.scripts.golablSrc)
       .pipe( changed(paths.scripts.golablTo))//通过改变的文件
+      .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
       .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
-      // .pipe( eslint()) //语法检查
+      .pipe( jshint())//语法检查
+      .pipe(jshint.reporter('default'))//默认错误提示
+      // .pipe( eslint())
       // .pipe( eslint.format())
       // .pipe( eslint.failAfterError())
       .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']} } ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
@@ -97,8 +101,10 @@ gulp.task('minifyjs', function() {
     return gulp.src(paths.scripts.src)
         .pipe( changed(paths.scripts.dest))//通过改变的文件
         .pipe( debug({title: '编译js:'}))
-        // .pipe( watch(paths.scripts.src) )   //监听gulp.watch不能监听新增文件
+        .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
         .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
+        .pipe( jshint())//语法检查
+        .pipe(jshint.reporter('default'))//默认错误提示
         // .pipe( eslint()) //语法检查
         // .pipe( eslint.format())
         // .pipe( eslint.failAfterError())
@@ -115,8 +121,7 @@ gulp.task('minifyhtml', function() {
 });
 
 //图片压缩
-gulp.task('images', function() {
-
+gulp.task('minifyimages', function() {
   return gulp.src(paths.images.src)
     .pipe(cache(imagemin({
             optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
@@ -152,9 +157,11 @@ gulp.task('nodemon', function (cb) {
 
 
 gulp.task('clean', function() {
-  return del(['build/components/*','build/javascripts/manager/*','build/stylesheets/manager/*']);
+  return del(['build/components/*',
+              'build/javascripts/manager/*',
+              'build/stylesheets/manager/*']);
 });
-//'clean',
+//'clean', ,'minifyimages'
 gulp.task('default', ['copycsslib','copyjslib','server'], function() {
   // 将你的默认的任务代码放在这 'sass','minifyjs',
     gulp.run('minifygolbaljs','minifycss','minifyjs','minifyhtml');
