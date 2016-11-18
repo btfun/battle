@@ -3,7 +3,7 @@ define(function(require){
 /*
 *home 组件的顶级模块
 */
- 
+
 
 return  {
     template: require('text!components/manager/home/homeTmpl.html'),
@@ -31,6 +31,12 @@ return  {
     methods:{
           goo(){
               this.$router.push({path:'/busi'})
+          },
+          note(){
+            this.$notify({
+                 title: '标题名称',
+                 message: '阿里里阿里里阿里里阿里里'
+               });
           }
     }
   }
