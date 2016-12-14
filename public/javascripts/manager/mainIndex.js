@@ -9,16 +9,17 @@ define(function(require){
   var createLogger = require('logger');
   var VueRouter = require('vueRouter');
   var vueResource = require('vueResource');
+ 
   var mainRouter = require('mainRouter');//主路由文件
   var mainModules = require('mainModules');//主路由文件
 
   var mainElectron = require('mainElectron');//桌面方法库
 
- 
+
  Vue.use(Vuex);
  Vue.use(VueRouter);
  Vue.use(vueResource);
-
+ Vue.use(elementUI);
 
 
  // Vue.http.options.root = '/root';

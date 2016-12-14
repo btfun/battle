@@ -32,6 +32,12 @@ return  {
     methods:{
           goo(){
               this.$router.push({path:'/busi'})
+          },
+          note(){
+            this.$notify({
+                 title: '标题名称',
+                 message: '阿里里阿里里阿里里阿里里'
+               });
           }
     }
   }

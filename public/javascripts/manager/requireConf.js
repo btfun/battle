@@ -9,7 +9,7 @@
    vue:         'javascripts/lib/vue/vue',
    vueRouter:   'javascripts/lib/vue/vue-router/vue-router',
    vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
-   vuex:        'javascripts/lib/vue/vuex/vuex',
+   vuex:        'javascripts/lib/vue/vuex/vuex', 
    logger:      'javascripts/lib/vue/vuex/logger',
    //////////////////主入口/////////////////////
    mainIndex:   'javascripts/manager/mainIndex',
