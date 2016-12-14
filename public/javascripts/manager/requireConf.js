@@ -15,6 +15,7 @@
    mainIndex:   'javascripts/manager/mainIndex',
    mainRouter:  'javascripts/manager/mainRouter',
    mainModules: 'javascripts/manager/mainModules',
+   mainElectron:'javascripts/manager/mainElectron',
    //////////////////组件入口1///////////////////
    home:{
      homeRouter: 'components/manager/home/homeRouter',

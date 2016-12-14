@@ -23,8 +23,8 @@ var  gulp = require('gulp'),
 
 var browserSync = require('browser-sync').create();
 var nodemon = require('gulp-nodemon');
-var reload      = browserSync.reload;
-
+var reload  = browserSync.reload;
+var Server  = require('karma').Server;
 
 var paths = {
        path:'public/',
@@ -105,7 +105,7 @@ gulp.task('minifyjs', function() {
         .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
         .pipe( jshint())//语法检查
         .pipe(jshint.reporter('default'))//默认错误提示
-        // .pipe( eslint()) //语法检查
+        // .pipe( eslint()) //格式检查
         // .pipe( eslint.format())
         // .pipe( eslint.failAfterError())
         .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']}} ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
@@ -135,7 +135,7 @@ gulp.task('minifyimages', function() {
 
 // 静态服务器 + 监听 文件 , './build/**/*.*'
 gulp.task('server',['nodemon'], function() {
-
+//,'./public/javascripts/manager/*.js'
   browserSync.init({
     proxy: 'http://localhost:3000',
     files: ['./views/**/*.*'],
@@ -168,6 +168,15 @@ gulp.task('default', ['copycsslib','copyjslib','server'], function() {
 
     gulp.watch([paths.styles.src],  ['minifycss']);
     gulp.watch([paths.scripts.src], ['minifyjs']);
+    gulp.watch([paths.scripts.golablSrc], ['minifygolbaljs']);
     gulp.watch([paths.tmpls.src], ['minifyhtml']);
 
+});
+
+//测试
+gulp.task('test', function (done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });

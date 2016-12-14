@@ -10,10 +10,25 @@
     <link rel='stylesheet' href='/stylesheets/lib/animate.min.css' />
     <link rel='stylesheet' href='/stylesheets/lib/bootstrap.min.css' />
     <link rel='stylesheet' href='/stylesheets/manager/all.min.css' />
+    <script>
+    //解决electron和其他框架的冲突
+      try {
+        window.nodeRequire = require;
+        delete window.require;
+        delete window.exports;
+        delete window.module;
+      } catch (e) {
+        console.log(e)
+        window.nodeRequire = '';
+      }
+
+    </script>
     <script type="text/javascript" data-main="/javascripts/manager/requireConf.js" src="/javascripts/lib/requireJS/requireJS.js"></script>
+    <!-- <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script> -->
+
   </head>
   <body>
-    hello
+
     <div id="app">
       <h1>Hello App!12333</h1>
       <p>
