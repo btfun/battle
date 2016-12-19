@@ -40,12 +40,16 @@ var paths = {
          dest: 'build/components'
        },
        scripts: {
+         //组件
          src: 'public/components/**/*.js',
          dest: 'build/components',
-
-         golablSrc:'public/javascripts/manager/**/*.js',
-         golablTo:'build/javascripts/manager',
-
+         //公用
+         golablBaseSrc: 'public/javascripts/base/**/*.js',
+         golablBaseTo: 'build/javascripts/base',
+         //主入口
+         golablSrc: 'public/javascripts/manager/**/*.js',
+         golablTo: 'build/javascripts/manager',
+         //lib脚本
          libSrc: 'public/javascripts/lib/**/*.js',
          libTo: 'build/javascripts/lib'
        },
@@ -80,8 +84,25 @@ gulp.task('copyjslib',function(){
 gulp.task('copycsslib',function(){
   return gulp.src(paths.styles.libSrc)
         .pipe( gulp.dest(paths.styles.libTo));
-})
-//非组件脚本复制
+});
+
+//base压缩
+gulp.task('minifygolbalbasejs', function(){
+  return gulp.src(paths.scripts.golablBaseSrc)
+      .pipe( changed(paths.scripts.golablBaseTo))//通过改变的文件
+      .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
+      .pipe( jshint())//语法检查
+      .pipe( jshint.reporter('default'))//默认错误提示
+      .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+      // .pipe( eslint())
+      // .pipe( eslint.format())
+      // .pipe( eslint.failAfterError())
+      .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']} } ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
+      .pipe( gulp.dest(paths.scripts.golablBaseTo))  //输出
+      .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
+});
+
+//manager压缩
 gulp.task('minifygolbaljs', function(){
   return gulp.src(paths.scripts.golablSrc)
       .pipe( changed(paths.scripts.golablTo))//通过改变的文件
@@ -164,11 +185,12 @@ gulp.task('clean', function() {
 //'clean', ,'minifyimages'
 gulp.task('default', ['copycsslib','copyjslib','server'], function() {
   // 将你的默认的任务代码放在这 'sass','minifyjs',
-    gulp.run('minifygolbaljs','minifycss','minifyjs','minifyhtml');
+    gulp.run('minifygolbaljs','minifygolbalbasejs','minifycss','minifyjs','minifyhtml');
 
     gulp.watch([paths.styles.src],  ['minifycss']);
     gulp.watch([paths.scripts.src], ['minifyjs']);
     gulp.watch([paths.scripts.golablSrc], ['minifygolbaljs']);
+    gulp.watch([paths.scripts.golablBaseSrc], ['minifygolbalbasejs']);
     gulp.watch([paths.tmpls.src], ['minifyhtml']);
 
 });

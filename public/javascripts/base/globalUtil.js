@@ -6,11 +6,15 @@ define(function(require){
 数据解码
 密码验证
 XHR请求全局拦截
-
 */
 
 
 
+return {
+
+
+
+}
 
 
 });

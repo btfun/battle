@@ -9,8 +9,10 @@
    vue:         'javascripts/lib/vue/vue',
    vueRouter:   'javascripts/lib/vue/vue-router/vue-router',
    vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
-   vuex:        'javascripts/lib/vue/vuex/vuex', 
+   vuex:        'javascripts/lib/vue/vuex/vuex',
    logger:      'javascripts/lib/vue/vuex/logger',
+   globalUri:   'javascripts/base/globalUri',
+   globalUtil:  'javascripts/base/globalUtil',
    //////////////////主入口/////////////////////
    mainIndex:   'javascripts/manager/mainIndex',
    mainRouter:  'javascripts/manager/mainRouter',

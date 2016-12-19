@@ -14,6 +14,8 @@ define(function(require){
 
   var mainElectron = require('mainElectron');//桌面方法库
 
+require('globalUri');
+require('globalUtil');
 
  Vue.use(Vuex);
  Vue.use(VueRouter);
@@ -58,7 +60,7 @@ const routers = new VueRouter({
  });
 
  routers.beforeEach((to, from, next) => {
-   console.log(to.path)
+   console.log('当前路径：',to.path)
    next()
  })
 
