@@ -11,6 +11,7 @@
    vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
    vuex:        'javascripts/lib/vue/vuex/vuex',
    logger:      'javascripts/lib/vue/vuex/logger',
+   //base
    globalUri:   'javascripts/base/globalUri',
    globalUtil:  'javascripts/base/globalUtil',
    //////////////////主入口/////////////////////
@@ -29,7 +30,6 @@
      getters: 'components/manager/home/hStore/getters',
      mutations: 'components/manager/home/hStore/mutations',
      actions: 'components/manager/home/hStore/actions',
-
 
      oneModule: 'components/manager/home/children/one/oneModule',
      twoModule: 'components/manager/home/children/two/twoModule'

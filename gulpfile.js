@@ -89,11 +89,12 @@ gulp.task('copycsslib',function(){
 //base压缩
 gulp.task('minifygolbalbasejs', function(){
   return gulp.src(paths.scripts.golablBaseSrc)
+      .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
       .pipe( changed(paths.scripts.golablBaseTo))//通过改变的文件
       .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
       .pipe( jshint())//语法检查
       .pipe( jshint.reporter('default'))//默认错误提示
-      .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+
       // .pipe( eslint())
       // .pipe( eslint.format())
       // .pipe( eslint.failAfterError())
@@ -105,8 +106,8 @@ gulp.task('minifygolbalbasejs', function(){
 //manager压缩
 gulp.task('minifygolbaljs', function(){
   return gulp.src(paths.scripts.golablSrc)
-      .pipe( changed(paths.scripts.golablTo))//通过改变的文件
       .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+      .pipe( changed(paths.scripts.golablTo))//通过改变的文件
       .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
       .pipe( jshint())//语法检查
       .pipe(jshint.reporter('default'))//默认错误提示
@@ -120,9 +121,9 @@ gulp.task('minifygolbaljs', function(){
 //js压缩
 gulp.task('minifyjs', function() {
     return gulp.src(paths.scripts.src)
+        .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
         .pipe( changed(paths.scripts.dest))//通过改变的文件
         .pipe( debug({title: '编译js:'}))
-        .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
         .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
         .pipe( jshint())//语法检查
         .pipe(jshint.reporter('default'))//默认错误提示

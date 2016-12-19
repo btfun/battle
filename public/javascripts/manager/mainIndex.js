@@ -1,7 +1,7 @@
 define(function(require){
   'use strict'
  /*
-  * 全局使用函数
+  * 应用入口
   *
   */
   var Vue = require('vue');
