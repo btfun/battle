@@ -1,6 +1,6 @@
-(function(require,factory,win,fn){
+(function(factory,win,fn){
   fn(factory(),win);
-})(require,function(){
+})(function(){
 'use strict';
 //控制台输入 logPath('123456','searchKeys')查看对应的链接
  return {
@@ -16,8 +16,6 @@
    globalUtil:  'javascripts/base/globalUtil',
    //////////////////主入口/////////////////////
    mainIndex:   'javascripts/manager/mainIndex',
-   mainRouter:  'javascripts/manager/mainRouter',
-   mainModules: 'javascripts/manager/mainModules',
    mainElectron:'javascripts/manager/mainElectron',
    //////////////////组件入口1///////////////////
    home:{
@@ -83,12 +81,11 @@
     }
   }
 
-
-  requirejs.config({
+  win.requirejs.config({
     baseUrl: '/',
     paths: path
   });
-  require(['text','mainIndex']);
+  win.require(['text','mainIndex']);
 
   win.logPath=function(pwd,conf){
       if(pwd!==123456)return;
