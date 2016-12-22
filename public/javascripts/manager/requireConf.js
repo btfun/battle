@@ -10,7 +10,7 @@
    vueRouter:   'javascripts/lib/vue/vue-router/vue-router',
    vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
    vuex:        'javascripts/lib/vue/vuex/vuex',
-   elementUi:        'javascripts/lib/element-ui/element-ui.min',
+   elementUi:   'javascripts/lib/element/element.min',  
    logger:      'javascripts/lib/vue/vuex/logger',
    //////////////////主入口/////////////////////
    mainIndex:   'javascripts/manager/mainIndex',

@@ -8,20 +8,15 @@ define(function(require){
   var Vuex = require('vuex');
   var createLogger = require('logger');
   var VueRouter = require('vueRouter');
-  var vueResource = require('vueResource');
-  var elementUI  = require('elementUi'),
-      Select=elementUI.Select,
-      Button=elementUI.Button;
+  var vueResource = require('vueResource'); 
   var mainRouter = require('mainRouter');//主路由文件
   var mainModules = require('mainModules');//主路由文件
 
+ 
  Vue.use(Vuex);
  Vue.use(VueRouter);
  Vue.use(vueResource);
- Vue.use(elementUI);
 
- Vue.component(Select.name, Select);
- Vue.component(Button.name, Button);
  // Vue.http.options.root = '/root';
  // Vue.http.options.emulateJSON = true;
  // Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk';
