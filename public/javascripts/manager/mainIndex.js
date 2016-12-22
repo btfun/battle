@@ -12,8 +12,8 @@ define(function(require){
   var vueResource = require('vueResource');
   var mainElectron = require('mainElectron');//桌面方法库
 
-require('globalUri');
-require('globalUtil');
+  require('globalUri');
+  require('globalUtil');
 
  Vue.use(Vuex);
  Vue.use(VueRouter);
@@ -91,4 +91,4 @@ const routers = new VueRouter({
  }).$mount('#app');
 
 
-});
+}); 
