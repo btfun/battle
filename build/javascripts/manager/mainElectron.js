@@ -1,0 +1,1 @@
+"use strict";define(function(require){if(nodeRequire&&"function"==typeof nodeRequire){var e=nodeRequire("electron"),n=(e.desktopCapturer,e.webFrame,nodeRequire("os"));console.log("=os net= ",n.networkInterfaces())}return{}});

@@ -8,17 +8,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel='stylesheet' href='/stylesheets/lib/animate.min.css' />
-    <link rel='stylesheet' href='/stylesheets/lib/bootstrap.min.css' />
-    <link rel='stylesheet' href='/stylesheets/manager/all.min.css' />
-    <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+    <link rel='stylesheet' href='/stylesheets/manager/all.min.css' />
+
+    <script>
+    //解决electron和其他框架的冲突
+      try {
+        window.nodeRequire = require;
+        delete window.require;
+        delete window.exports;
+        delete window.module;
+      } catch (e) {
+        console.warn('fault-tolerant:',e)
+        window.nodeRequire = '';
+      }
+    var GLOBAL={};
+    </script>
+
     <script type="text/javascript" data-main="/javascripts/manager/requireConf.js" src="/javascripts/lib/requireJS/requireJS.js"></script>
+
   </head>
   <body>
 
     <div id="app">
       <h1>Hello App!12333</h1>
-     
+
       <p>
         <!-- 使用 router-link 组件来导航. -->
         <!-- 通过传入 `to` 属性指定链接. -->

@@ -1,6 +1,6 @@
-(function(require,factory,win,fn){
+(function(factory,win,fn){
   fn(factory(),win);
-})(require,function(){
+})(function(){
 'use strict';
 //控制台输入 logPath('123456','searchKeys')查看对应的链接
  return {
@@ -10,12 +10,13 @@
    vueRouter:   'javascripts/lib/vue/vue-router/vue-router',
    vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
    vuex:        'javascripts/lib/vue/vuex/vuex',
-   elementUi:   'javascripts/lib/element/element.min',  
    logger:      'javascripts/lib/vue/vuex/logger',
+   //base
+   globalUri:   'javascripts/base/globalUri',
+   globalUtil:  'javascripts/base/globalUtil',
    //////////////////主入口/////////////////////
    mainIndex:   'javascripts/manager/mainIndex',
-   mainRouter:  'javascripts/manager/mainRouter',
-   mainModules: 'javascripts/manager/mainModules',
+   mainElectron:'javascripts/manager/mainElectron',
    //////////////////组件入口1///////////////////
    home:{
      homeRouter: 'components/manager/home/homeRouter',
@@ -27,7 +28,6 @@
      getters: 'components/manager/home/hStore/getters',
      mutations: 'components/manager/home/hStore/mutations',
      actions: 'components/manager/home/hStore/actions',
-
 
      oneModule: 'components/manager/home/children/one/oneModule',
      twoModule: 'components/manager/home/children/two/twoModule'
@@ -81,12 +81,11 @@
     }
   }
 
-
-  requirejs.config({
+  win.requirejs.config({
     baseUrl: '/',
     paths: path
   });
-  require(['text','mainIndex']);
+  win.require(['text','mainIndex']);
 
   win.logPath=function(pwd,conf){
       if(pwd!==123456)return;
@@ -98,4 +97,4 @@
         }
       }
     }
-});
+}); 
