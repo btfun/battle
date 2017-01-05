@@ -1,1 +1,104 @@
-"use strict";var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};!function(e,o,t){t(e(),o)}(function(){return{text:"javascripts/lib/requireJS/requireJS-text",vue:"javascripts/lib/vue/vue",vueRouter:"javascripts/lib/vue/vue-router/vue-router",vueResource:"javascripts/lib/vue/vue-resource/vue-resource",vuex:"javascripts/lib/vue/vuex/vuex",logger:"javascripts/lib/vue/vuex/logger",globalUri:"javascripts/base/globalUri",globalUtil:"javascripts/base/globalUtil",mainIndex:"javascripts/manager/mainIndex",mainElectron:"javascripts/manager/mainElectron",home:{homeRouter:"components/manager/home/homeRouter",homeModule:"components/manager/home/homeModule",module:"components/manager/home/hStore/module",store:"components/manager/home/hStore/store",getters:"components/manager/home/hStore/getters",mutations:"components/manager/home/hStore/mutations",actions:"components/manager/home/hStore/actions",oneModule:"components/manager/home/children/one/oneModule",twoModule:"components/manager/home/children/two/twoModule"},busi:{busiRouter:"components/manager/busi/busiRouter",busiModule:"components/manager/busi/busiModule",module:"components/manager/busi/bStore/module",store:"components/manager/busi/bStore/store",getters:"components/manager/busi/bStore/getters",mutations:"components/manager/busi/bStore/mutations",actions:"components/manager/busi/bStore/actions"},custom:{customRouter:"components/manager/custom/customRouter",customModule:"components/manager/custom/customModule",module:"components/manager/custom/cStore/module",store:"components/manager/custom/cStore/store",getters:"components/manager/custom/cStore/getters",mutations:"components/manager/custom/cStore/mutations",actions:"components/manager/custom/cStore/actions"}}},window,function(e,o){var t={};for(var n in e)if("string"==typeof e[n])t[n]=e[n];else if("object"===_typeof(e[n]))for(var r in e[n])if("object"===_typeof(e[n][r])){for(var s in e[n][r])if(t[n+"."+r+"."+s]=e[n][r][s],"object"===_typeof(e[n][r][s]))return alert("警告require配置对象不能有三级对象属性")}else t[n+"."+r]=e[n][r];o.requirejs.config({baseUrl:"/",paths:t}),o.require(["text","mainIndex"]),o.logPath=function(e,o){if(123456===e)for(var n in t)o?n.indexOf(o)>-1&&console.log(n,":",t[n]):console.log(n,":",t[n])}});
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+(function (factory, win, fn) {
+  fn(factory(), win);
+})(function () {
+  'use strict';
+  //控制台输入 logPath('123456','searchKeys')查看对应的链接
+
+  return {
+    //////////////////lib//////////////////////
+    text: 'javascripts/lib/requireJS/requireJS-text',
+    vue: 'javascripts/lib/vue/vue',
+    vueRouter: 'javascripts/lib/vue/vue-router/vue-router',
+    vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
+    vuex: 'javascripts/lib/vue/vuex/vuex',
+    logger: 'javascripts/lib/vue/vuex/logger',
+    //base
+    globalUri: 'javascripts/base/globalUri',
+    globalUtil: 'javascripts/base/globalUtil',
+    //////////////////主入口/////////////////////
+    mainIndex: 'javascripts/manager/mainIndex',
+    mainElectron: 'javascripts/manager/mainElectron',
+    //////////////////组件入口1///////////////////
+    home: {
+      homeRouter: 'components/manager/home/homeRouter',
+      homeModule: 'components/manager/home/homeModule',
+      //  homeTmpl:'components/manager/home/homeTmpl.html',
+
+      module: 'components/manager/home/hStore/module',
+      store: 'components/manager/home/hStore/store',
+      getters: 'components/manager/home/hStore/getters',
+      mutations: 'components/manager/home/hStore/mutations',
+      actions: 'components/manager/home/hStore/actions',
+
+      oneModule: 'components/manager/home/children/one/oneModule',
+      twoModule: 'components/manager/home/children/two/twoModule'
+    },
+
+    //////////////////组件入口2///////////////////
+    busi: {
+      busiRouter: 'components/manager/busi/busiRouter',
+      busiModule: 'components/manager/busi/busiModule',
+
+      module: 'components/manager/busi/bStore/module',
+      store: 'components/manager/busi/bStore/store',
+      getters: 'components/manager/busi/bStore/getters',
+      mutations: 'components/manager/busi/bStore/mutations',
+      actions: 'components/manager/busi/bStore/actions'
+    },
+
+    //////////////////组件入口3///////////////////
+    custom: {
+      customRouter: 'components/manager/custom/customRouter',
+      customModule: 'components/manager/custom/customModule',
+
+      module: 'components/manager/custom/cStore/module',
+      store: 'components/manager/custom/cStore/store',
+      getters: 'components/manager/custom/cStore/getters',
+      mutations: 'components/manager/custom/cStore/mutations',
+      actions: 'components/manager/custom/cStore/actions'
+    }
+
+  };
+}, window, function (pathMods, win) {
+  'use strict';
+  //pathMods 层级对象抹平，最多支持三级对象属性
+
+  var path = {};
+  for (var attr in pathMods) {
+    if (typeof pathMods[attr] === 'string') {
+      path[attr] = pathMods[attr];
+    } else if (_typeof(pathMods[attr]) === 'object') {
+      for (var att in pathMods[attr]) {
+        if (_typeof(pathMods[attr][att]) === 'object') {
+          for (var at in pathMods[attr][att]) {
+            path[attr + '.' + att + '.' + at] = pathMods[attr][att][at];
+            if (_typeof(pathMods[attr][att][at]) === 'object') return alert('警告require配置对象不能有三级对象属性');
+          }
+        } else {
+          path[attr + '.' + att] = pathMods[attr][att];
+        }
+      }
+    }
+  }
+
+  win.requirejs.config({
+    baseUrl: '/',
+    paths: path
+  });
+  win.require(['text', 'mainIndex']);
+
+  win.logPath = function (pwd, conf) {
+    if (pwd !== 123456) return;
+    for (var ins in path) {
+      if (conf) {
+        if (ins.indexOf(conf) > -1) console.log(ins, ':', path[ins]);
+      } else {
+        console.log(ins, ':', path[ins]);
+      }
+    }
+  };
+});

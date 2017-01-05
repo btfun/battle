@@ -1,5 +1,5 @@
 define(function(require){
-
+'use strict'
   if(nodeRequire && typeof nodeRequire ==='function'){
     var electron=nodeRequire('electron');
     var desktopCapturer = electron.desktopCapturer

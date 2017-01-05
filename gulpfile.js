@@ -49,8 +49,8 @@ var paths = {
        },
        scripts: {
          //组件
-         src: 'public/components/**/*.js',
-         dest: 'build/components',
+         componentsSrc: 'public/components/**/*.js',
+         componentsTo: 'build/components',
          //公用
          golablBaseSrc: 'public/javascripts/base/**/*.js',
          golablBaseTo: 'build/javascripts/base',
@@ -64,9 +64,6 @@ var paths = {
        images:{
          src: 'public/components/**/*.{png,jpg,gif,ico}',
          dest: 'build/stylesheets/manager'
-       },
-       production:{
-
        }
      };
 
@@ -108,7 +105,7 @@ gulp.task('minifygolbalbasejs', function(){
       // .pipe( eslint())
       // .pipe( eslint.format())
       // .pipe( eslint.failAfterError())
-      .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']} } ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
+      // .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']} } ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
       .pipe( gulp.dest(paths.scripts.golablBaseTo))  //输出
       .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
 });
@@ -124,15 +121,15 @@ gulp.task('minifygolbaljs', function(){
       // .pipe( eslint())
       // .pipe( eslint.format())
       // .pipe( eslint.failAfterError())
-      .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']} } ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
+      // .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']} } ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
       .pipe( gulp.dest(paths.scripts.golablTo))  //输出
       .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
 });
 //js压缩
 gulp.task('minifyjs', function() {
-    return gulp.src(paths.scripts.src)
+    return gulp.src(paths.scripts.componentsSrc)
         .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-        .pipe( changed(paths.scripts.dest))//通过改变的文件
+        .pipe( changed(paths.scripts.componentsTo))//通过改变的文件
         .pipe( debug({title: '编译js:'}))
         .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
         .pipe( jshint())//语法检查
@@ -140,8 +137,8 @@ gulp.task('minifyjs', function() {
         // .pipe( eslint()) //格式检查
         // .pipe( eslint.format())
         // .pipe( eslint.failAfterError())
-        .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']}} ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
-        .pipe( gulp.dest(paths.scripts.dest))  //输出
+        // .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']}} ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
+        .pipe( gulp.dest(paths.scripts.componentsTo))  //输出
         .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
 });
 
@@ -190,6 +187,7 @@ gulp.task('nodemon', function (cb) {
 //删除掉上一次构建时创建的资源
 gulp.task('clean', function() {
   return del(['build/components/*',
+              'rev-manifest.json',
               'build/javascripts/base/*',
               'build/javascripts/manager/*',
               'build/stylesheets/manager/*']);
@@ -209,12 +207,82 @@ gulp.task('default', ['clean','copycsslib','copyjslib','server'], function() {
 });
 
 /////////////////////////////////////生产////////////////////////////////////////////////////
+
+//css 编译压缩
+gulp.task('online_minifycss', function(){
+    return gulp.src(paths.styles.src)
+    .pipe( changed(paths.styles.dest,{extension: '.min.css'}))//通过改变的文件
+    .pipe( debug({title: '编译css:'}))
+    .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+    .pipe( less())
+    .pipe( sourcemaps.write())
+    .pipe( autoprefixer('last 2 versions', '> 1%', 'ie 8', 'Android >=4.0') )  //添加浏览器前缀
+    .pipe( minifycss() ) //执行压缩
+    .pipe( concat('all.css'))
+    .pipe( rename({suffix: '.min'}) )   //rename压缩后的文件名
+    .pipe( gulp.dest(paths.styles.dest) ); //输出文件夹
+});
+
+//base压缩
+gulp.task('online_minify_basejs', function(){
+  return gulp.src(paths.scripts.golablBaseSrc)
+      .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+      .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
+      .pipe( jshint())//语法检查
+      .pipe( jshint.reporter('default'))//默认错误提示
+      .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']} } ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
+      .pipe( rev())                                        //- 文件名加MD5后缀
+      .pipe( gulp.dest(paths.scripts.golablBaseTo))  //输出
+      .pipe( rev.manifest({merge:true}))                   //- 生成一个rev-manifest.json
+      .pipe( gulp.dest(''));                                //- 映射文件输出目录
+});
+
+//manager压缩
+gulp.task('online_minify_managerjs', function(){
+  return gulp.src(paths.scripts.golablSrc)
+      .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+      .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
+      .pipe( jshint())//语法检查
+      .pipe( jshint.reporter('default'))//默认错误提示
+      .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']} } ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
+      .pipe( rev())                                        //- 文件名加MD5后缀
+      .pipe( gulp.dest(paths.scripts.golablTo))  //输出
+      .pipe( rev.manifest({merge:true}))                   //- 生成一个rev-manifest.json
+      .pipe( gulp.dest(''));                                //- 映射文件输出目录
+});
+//js压缩
+gulp.task('online_minify_componentsjs', function() {
+    return gulp.src(paths.scripts.componentsSrc)
+        .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+        .pipe( debug({title: '编译js:'}))
+        .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
+        .pipe( jshint())//语法检查
+        .pipe( jshint.reporter('default'))//默认错误提示
+        .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']}} ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
+        .pipe( rev())                                        //- 文件名加MD5后缀
+        .pipe( gulp.dest(paths.scripts.componentsTo))  //输出
+        .pipe( rev.manifest({merge:true}))                   //- 生成一个rev-manifest.json
+        .pipe( gulp.dest(''));                                //- 映射文件输出目录
+});
+
+gulp.task('online_minifyhtml', function() {
+  return gulp.src(paths.tmpls.src)
+    .pipe(minifyhtml({collapseWhitespace: true}))
+    .pipe(gulp.dest(paths.tmpls.dest));
+});
+
+
+
+
 //构建总入口
-gulp.task('online',['clean','copycsslib','copyjslib','minifygolbaljs','minifygolbalbasejs','minifycss','minifyjs','minifyhtml'], function(callback) {
+gulp.task('online',['clean','copycsslib','copyjslib',
+                    'online_minifycss',
+                    'online_minifyhtml',
+                    "online_minify_basejs",
+                    "online_minify_managerjs",
+                    "online_minify_componentsjs" ], function(callback) {
 
    runSequence(
-       "online_clean",       //- 上一次构建的结果清空
-       "online_md5",                  //- 文件合并与md5
        "online_replaceSuffix",        //- 替换.js后缀
        "online_replaceRequireConfPath",      //- 路径替换为md5后的路径
        callback);
@@ -226,12 +294,10 @@ gulp.task('online_clean', function() {
 });
 
 gulp.task('online_md5',function(){
-  return gulp.src(['build/**/*.js',
-                   '!build/javascripts/lib/**/*.js'])
+  return gulp.src(['build/**/*.js','!build/javascripts/lib/**/*.js'])
         .pipe( rev())    //- 文件名加MD5后缀
         .pipe( rev.manifest({merge:true}))
         .pipe( gulp.dest(''));          //- 映射文件输出目录
-        // .pipe( gulp.dest('build/**/*.js'));
 });
 
 
@@ -243,6 +309,7 @@ function modify(modifier) {
         done();
     });
 }
+
 function replaceSuffix(data) {
     return data.replace(/\.js/gmi, "");
 }
@@ -254,9 +321,9 @@ gulp.task("online_replaceSuffix",function (cb) {
         .on('end', cb);
 });
 gulp.task("online_replaceRequireConfPath",function (cb) {
-    gulp.src(['rev-manifest.json', './build/javascripts/manager/requireConf.js'])
+    gulp.src(['rev-manifest.json', './build/javascripts/manager/requireConf-*.js'])
         .pipe(revCollector())   //- 替换为MD5后的文件名
-        .pipe(rename("requireConf.md5.js"))
+        .pipe(rename('requireConf.js')) //每次发布必更新的文件直接使用系统时间
         .pipe(gulp.dest('./build/javascripts/manager/'))
         .on('end', cb);
 });

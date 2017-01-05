@@ -1,1 +1,15 @@
-"use strict";define(function(require){if(nodeRequire&&"function"==typeof nodeRequire){var e=nodeRequire("electron"),n=(e.desktopCapturer,e.webFrame,nodeRequire("os"));console.log("=os net= ",n.networkInterfaces())}return{}});
+'use strict';
+
+define(function (require) {
+  'use strict';
+
+  if (nodeRequire && typeof nodeRequire === 'function') {
+    var electron = nodeRequire('electron');
+    var desktopCapturer = electron.desktopCapturer;
+    var webFrame = electron.webFrame;
+    var os = nodeRequire('os');
+    console.log('=os net= ', os.networkInterfaces());
+  }
+
+  return {};
+});
