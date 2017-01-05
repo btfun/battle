@@ -1,1 +1,0 @@
-"use strict";define(function(require){return{template:require("text!components/manager/home/children/one/oneTmpl.html"),data:function(){return{msg:123,age:20}},beforeCreate:function(){},created:function(){},watch:{},methods:{goo:function(){this.$router.push({path:"/busi"})}}}});

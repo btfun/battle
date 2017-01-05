@@ -1,1 +1,0 @@
-"use strict";define(function(require){var t=require("home.store"),e=require("home.getters"),o=require("home.mutations"),s=require("home.actions");return{state:t,getters:e,mutations:o,actions:s}});

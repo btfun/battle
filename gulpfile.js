@@ -13,7 +13,13 @@ var  gulp = require('gulp'),
      changed = require('gulp-changed'),//只通过改变的文件
      rename = require('gulp-rename'),//重命名
      watch = require('gulp-watch'),//监听
+     rev = require('gulp-rev'),//md5
+     runSequence= require('run-sequence'),//
+     revCollector= require('gulp-rev-collector'),//路径替换
+     through2= require('through2'),//路径替换
      del = require('del'),//删除
+     clean = require('gulp-clean'),//删除
+     reqOptimize = require('gulp-requirejs-optimize'),//- requireJs文件合并所需模块
      notify = require('gulp-notify'),
      debug = require('gulp-debug'),
      plumber = require('gulp-plumber'),
@@ -25,6 +31,8 @@ var browserSync = require('browser-sync').create();
 var nodemon = require('gulp-nodemon');
 var reload  = browserSync.reload;
 var Server  = require('karma').Server;
+
+
 
 var paths = {
        path:'public/',
@@ -56,6 +64,9 @@ var paths = {
        images:{
          src: 'public/components/**/*.{png,jpg,gif,ico}',
          dest: 'build/stylesheets/manager'
+       },
+       production:{
+
        }
      };
 
@@ -94,7 +105,6 @@ gulp.task('minifygolbalbasejs', function(){
       .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
       .pipe( jshint())//语法检查
       .pipe( jshint.reporter('default'))//默认错误提示
-
       // .pipe( eslint())
       // .pipe( eslint.format())
       // .pipe( eslint.failAfterError())
@@ -110,7 +120,7 @@ gulp.task('minifygolbaljs', function(){
       .pipe( changed(paths.scripts.golablTo))//通过改变的文件
       .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
       .pipe( jshint())//语法检查
-      .pipe(jshint.reporter('default'))//默认错误提示
+      .pipe( jshint.reporter('default'))//默认错误提示
       // .pipe( eslint())
       // .pipe( eslint.format())
       // .pipe( eslint.failAfterError())
@@ -177,14 +187,16 @@ gulp.task('nodemon', function (cb) {
     });
 });
 
-
+//删除掉上一次构建时创建的资源
 gulp.task('clean', function() {
   return del(['build/components/*',
+              'build/javascripts/base/*',
               'build/javascripts/manager/*',
               'build/stylesheets/manager/*']);
 });
 //'clean', ,'minifyimages'
-gulp.task('default', ['copycsslib','copyjslib','server'], function() {
+/////////////////////////////////////开发////////////////////////////////////////////////////
+gulp.task('default', ['clean','copycsslib','copyjslib','server'], function() {
   // 将你的默认的任务代码放在这 'sass','minifyjs',
     gulp.run('minifygolbaljs','minifygolbalbasejs','minifycss','minifyjs','minifyhtml');
 
@@ -196,7 +208,62 @@ gulp.task('default', ['copycsslib','copyjslib','server'], function() {
 
 });
 
-//测试
+/////////////////////////////////////生产////////////////////////////////////////////////////
+//构建总入口
+gulp.task('online',['clean','copycsslib','copyjslib','minifygolbaljs','minifygolbalbasejs','minifycss','minifyjs','minifyhtml'], function(callback) {
+
+   runSequence(
+       "online_clean",       //- 上一次构建的结果清空
+       "online_md5",                  //- 文件合并与md5
+       "online_replaceSuffix",        //- 替换.js后缀
+       "online_replaceRequireConfPath",      //- 路径替换为md5后的路径
+       callback);
+});
+
+
+gulp.task('online_clean', function() {
+  return del(['rev-manifest.json']);
+});
+
+gulp.task('online_md5',function(){
+  return gulp.src(['build/**/*.js',
+                   '!build/javascripts/lib/**/*.js'])
+        .pipe( rev())    //- 文件名加MD5后缀
+        .pipe( rev.manifest({merge:true}))
+        .pipe( gulp.dest(''));          //- 映射文件输出目录
+        // .pipe( gulp.dest('build/**/*.js'));
+});
+
+
+function modify(modifier) {
+    return through2.obj(function(file, encoding, done) {
+        var content = modifier(String(file.contents));
+        file.contents = new Buffer(content);
+        this.push(file);
+        done();
+    });
+}
+function replaceSuffix(data) {
+    return data.replace(/\.js/gmi, "");
+}
+
+gulp.task("online_replaceSuffix",function (cb) {
+    gulp.src(['rev-manifest.json'])
+        .pipe(modify(replaceSuffix))            //- 去掉.js后缀
+        .pipe(gulp.dest(''))
+        .on('end', cb);
+});
+gulp.task("online_replaceRequireConfPath",function (cb) {
+    gulp.src(['rev-manifest.json', './build/javascripts/manager/requireConf.js'])
+        .pipe(revCollector())   //- 替换为MD5后的文件名
+        .pipe(rename("requireConf.md5.js"))
+        .pipe(gulp.dest('./build/javascripts/manager/'))
+        .on('end', cb);
+});
+
+
+////////////////////////////////测试////////////////////////////////////////////////////
+
 gulp.task('test', function (done) {
   new Server({
     configFile: __dirname + '/karma.conf.js',

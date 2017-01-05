@@ -1,1 +1,0 @@
-"use strict";define(function(require){var t=require("busi.store"),s=require("busi.getters"),i=require("busi.mutations"),e=require("busi.actions");return{state:t,getters:s,mutations:i,actions:e}});
