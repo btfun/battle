@@ -12,8 +12,11 @@ define(function (require) {
   var createLogger = require('logger');
   var VueRouter = require('vueRouter');
   var vueResource = require('vueResource');
-  var mainElectron = require('mainElectron'); //桌面方法库
+  var mainElectron = require('mainHomeElectron'); //桌面方法库
 
+  var globalUtil = require('globalUtil');
+
+  console.log('====', globalUtil.createUUid());
 
   Vue.use(Vuex);
   Vue.use(VueRouter);

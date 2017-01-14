@@ -11,8 +11,9 @@ XHR请求全局拦截
 
 
 return {
-
-
+    createUUid: ()=>{
+       return Math.random().toString(36).substr(2, 20);
+    }
 
 }
 

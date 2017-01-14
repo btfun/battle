@@ -17,49 +17,49 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     vuex: 'javascripts/lib/vue/vuex/vuex',
     logger: 'javascripts/lib/vue/vuex/logger',
     //base
-    globalUri: 'javascripts/base/globalUri',
-    globalUtil: 'javascripts/base/globalUtil',
+    globalUri: 'javascripts/base/globalUri-9de1ddbbeb',
+    globalUtil: 'javascripts/base/globalUtil-47da5f4e43',
     //////////////////主入口/////////////////////
-    mainIndex: 'javascripts/manager/mainIndex',
-    mainElectron: 'javascripts/manager/mainElectron',
+    mainHomeIndex: 'javascripts/manager/mainIndex-fd0cbe63c7',
+    mainHomeElectron: 'javascripts/manager/mainElectron-986c97f4c8',
     //////////////////组件入口1///////////////////
     home: {
-      homeRouter: 'components/manager/home/homeRouter',
-      homeModule: 'components/manager/home/homeModule',
+      homeRouter: 'components/manager/home/homeRouter-191159098b',
+      homeModule: 'components/manager/home/homeModule-470bf8e5b9',
       //  homeTmpl:'components/manager/home/homeTmpl.html',
 
-      module: 'components/manager/home/hStore/module',
-      store: 'components/manager/home/hStore/store',
-      getters: 'components/manager/home/hStore/getters',
-      mutations: 'components/manager/home/hStore/mutations',
-      actions: 'components/manager/home/hStore/actions',
+      module: 'components/manager/home/hStore/module-b5570a40e0',
+      store: 'components/manager/home/hStore/store-b119f5fced',
+      getters: 'components/manager/home/hStore/getters-b119f5fced',
+      mutations: 'components/manager/home/hStore/mutations-008f3170a3',
+      actions: 'components/manager/home/hStore/actions-86543f00cc',
 
-      oneModule: 'components/manager/home/children/one/oneModule',
-      twoModule: 'components/manager/home/children/two/twoModule'
+      oneModule: 'components/manager/home/children/one/oneModule-f48223aca2',
+      twoModule: 'components/manager/home/children/two/twoModule-567c5cdcc7'
     },
 
     //////////////////组件入口2///////////////////
     busi: {
-      busiRouter: 'components/manager/busi/busiRouter',
-      busiModule: 'components/manager/busi/busiModule',
+      busiRouter: 'components/manager/busi/busiRouter-f9336f3566',
+      busiModule: 'components/manager/busi/busiModule-c03a7331f1',
 
-      module: 'components/manager/busi/bStore/module',
-      store: 'components/manager/busi/bStore/store',
-      getters: 'components/manager/busi/bStore/getters',
-      mutations: 'components/manager/busi/bStore/mutations',
-      actions: 'components/manager/busi/bStore/actions'
+      module: 'components/manager/busi/bStore/module-49c4fff23f',
+      store: 'components/manager/busi/bStore/store-b119f5fced',
+      getters: 'components/manager/busi/bStore/getters-b119f5fced',
+      mutations: 'components/manager/busi/bStore/mutations-008f3170a3',
+      actions: 'components/manager/busi/bStore/actions-86543f00cc'
     },
 
     //////////////////组件入口3///////////////////
     custom: {
-      customRouter: 'components/manager/custom/customRouter',
-      customModule: 'components/manager/custom/customModule',
+      customRouter: 'components/manager/custom/customRouter-98152e7d42',
+      customModule: 'components/manager/custom/customModule-5986f7657a',
 
-      module: 'components/manager/custom/cStore/module',
-      store: 'components/manager/custom/cStore/store',
-      getters: 'components/manager/custom/cStore/getters',
-      mutations: 'components/manager/custom/cStore/mutations',
-      actions: 'components/manager/custom/cStore/actions'
+      module: 'components/manager/custom/cStore/module-8b6e81afb8',
+      store: 'components/manager/custom/cStore/store-b119f5fced',
+      getters: 'components/manager/custom/cStore/getters-b119f5fced',
+      mutations: 'components/manager/custom/cStore/mutations-008f3170a3',
+      actions: 'components/manager/custom/cStore/actions-86543f00cc'
     }
 
   };
@@ -89,7 +89,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     baseUrl: '/',
     paths: path
   });
-  win.require(['text', 'mainIndex']);
+  win.require(['text', 'mainHomeIndex']); //这里的不能被替换MD5后缀
 
   win.logPath = function (pwd, conf) {
     if (pwd !== 123456) return;

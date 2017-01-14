@@ -54,7 +54,7 @@ process.on("uncaughtException", function (err) {
   }),serverIp=(info.length>0 ? info[0].address : ' 空 ');
 
   //系统级异常监控
-  logger.info('进程异常:',err.message + "\n\n" + err.stack + "\n\n" + err.toString());
+  // logger.info('进程异常:',err.message + "\n\n" + err.stack + "\n\n" + err.toString());
 
   emailUtil.sendMail({
     subject : "saas.web http://"+serverIp+" 发生严重错误，导致用户不能正常使用系统，请火速救援 [Web Server Error]",

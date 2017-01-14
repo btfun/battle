@@ -15,8 +15,8 @@
    globalUri:   'javascripts/base/globalUri',
    globalUtil:  'javascripts/base/globalUtil',
    //////////////////主入口/////////////////////
-   mainIndex:   'javascripts/manager/mainIndex',
-   mainElectron:'javascripts/manager/mainElectron',
+   mainHomeIndex:   'javascripts/manager/mainIndex',
+   mainHomeElectron:'javascripts/manager/mainElectron',
    //////////////////组件入口1///////////////////
    home:{
      homeRouter: 'components/manager/home/homeRouter',
@@ -85,7 +85,7 @@
     baseUrl: '/',
     paths: path
   });
-  win.require(['text','mainIndex']);
+  win.require(['text','mainHomeIndex']);//这里的不能被替换MD5后缀
 
   win.logPath=function(pwd,conf){
       if(pwd!==123456)return;
@@ -97,4 +97,4 @@
         }
       }
     }
-}); 
+});
