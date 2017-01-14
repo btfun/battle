@@ -1,5 +1,5 @@
 define(function(require){
-'use strict'
+
 
 
   return  {
@@ -7,7 +7,7 @@ define(function(require){
     data:function(){
       return {
         msg:123,
-        age:20,
+        age:20
       }
     }
   }

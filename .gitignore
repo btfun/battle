@@ -3,6 +3,7 @@ dist/
 logs/
 config/
 conf/
+build/
 node_modules/
 
 routes/manager/

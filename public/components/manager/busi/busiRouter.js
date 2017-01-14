@@ -1,5 +1,5 @@
 define(function(require){
-'use strict'
+ 
 const UserProfile = {
   template: `
     <div class="user">

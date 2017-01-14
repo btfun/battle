@@ -9,14 +9,13 @@ define(function (require) {
 
   var Vue = require('vue');
   var Vuex = require('vuex');
-  var createLogger = require('logger');
   var VueRouter = require('vueRouter');
   var vueResource = require('vueResource');
   var mainElectron = require('mainHomeElectron'); //桌面方法库
 
   var globalUtil = require('globalUtil');
 
-  console.log('====', globalUtil.createUUid());
+  console.log('==>>>===', globalUtil.createUUid());
 
   Vue.use(Vuex);
   Vue.use(VueRouter);
@@ -31,8 +30,8 @@ define(function (require) {
       home: require('home.module'), //home 模块状态组件
       custom: require('custom.module'), //custom 模块状态组件
       busi: require('busi.module')
-    },
-    plugins: [createLogger()]
+    }
+    //  plugins: [createLogger()]
   });
 
   /**

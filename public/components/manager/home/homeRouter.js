@@ -3,8 +3,8 @@ define(function(require){
 /*
 home 模块的路由配置文件
 
-home/one
-home/two
+home/one123
+home/two12313
 
 */
   return { path: '/',

@@ -2,7 +2,7 @@
   fn(factory(),win);
 })(function(){
 'use strict';
-//控制台输入 logPath('123456','searchKeys')查看对应的链接
+//控制台输入 logPath('123456','searchKeys')查看对应的链接1231231
  return {
    //////////////////lib//////////////////////
    text:        'javascripts/lib/requireJS/requireJS-text',
@@ -83,6 +83,7 @@
 
   win.requirejs.config({
     baseUrl: '/',
+    urlArgs: GLOBAL.version,
     paths: path
   });
   win.require(['text','mainHomeIndex']);//这里的不能被替换MD5后缀

@@ -27,7 +27,9 @@
         console.warn('fault-tolerant:',e)
         window.nodeRequire = '';
       }
-    var GLOBAL={};
+    var GLOBAL={
+      version: '{{{version}}}'
+    };
     </script>
 
     <script type="text/javascript" data-main="/javascripts/manager/requireConf.js{{{fileVersion}}}" src="/javascripts/lib/requireJS/requireJS.js"></script>
