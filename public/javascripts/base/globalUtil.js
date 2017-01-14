@@ -1,5 +1,5 @@
 define(function(require){
-'use strict'
+'use strict';
 
 /*
 权限验证

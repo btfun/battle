@@ -6,7 +6,8 @@ define(function(require){
 
 
 return  {
-    template: require('text!components/manager/home/homeTmpl.html'),
+    // template: require('text!components/manager/home/homeTmpl.html'),
+    template: require('home.homeTmpl'),
     data:function(){
       return {
         msg:'测试一下咯',
@@ -15,7 +16,7 @@ return  {
     },
     beforeCreate:function(){
       //在实例初始化之后，数据观测(data observer) 和 event/watcher 事件配置之前被调用。
-    
+
     },
     created:function(){
 

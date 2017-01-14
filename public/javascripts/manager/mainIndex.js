@@ -28,7 +28,7 @@ define(function(require){
   **/
 const vuexStore= new Vuex.Store({
      modules: {
-       home:   require('home.module'), //home 模块状态组件
+       home:   require('home.module'),  //home 模块状态组件
        custom: require('custom.module'),//custom 模块状态组件
        busi:   require('busi.module')
      },
@@ -41,7 +41,7 @@ const vuexStore= new Vuex.Store({
   **/
 const routers = new VueRouter({
       routes: [
-          require('home.homeRouter'),
+          require('home.homeRouter'),//
           require('busi.busiRouter'),
           require('custom.customRouter'),
       ]

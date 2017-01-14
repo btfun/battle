@@ -1,16 +1,12 @@
 'use strict';
 
 define(function (require) {
-  'use strict';
-  /*
-  *home 组件的顶级模块
-  */
 
   return {
-    template: require('text!components/manager/home/homeTmpl.html'),
+    template: require('text!components/manager/home/children/two/twoTmpl.html'),
     data: function data() {
       return {
-        msg: '测试一下咯',
+        msg: 123,
         age: 20
       };
     },
@@ -19,21 +15,14 @@ define(function (require) {
 
     },
     created: function created() {},
-    computed: {
-      count: function count() {
-        return this.$store.state.count;
+    watch: {
+      msg: function msg(ms) {
+        console.log(ms);
       }
     },
-    watch: {},
     methods: {
       goo: function goo() {
         this.$router.push({ path: '/busi' });
-      },
-      note: function note() {
-        this.$notify({
-          title: '标题名称',
-          message: '阿里里阿里里阿里里阿里里'
-        });
       }
     }
   };

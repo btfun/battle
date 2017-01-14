@@ -1,7 +1,5 @@
 define(function(require){
-'use strict'
 
-// require('text!components/manager/home/children/two/two_style.css')
 
 return  {
     template: require('text!components/manager/home/children/two/twoTmpl.html'),

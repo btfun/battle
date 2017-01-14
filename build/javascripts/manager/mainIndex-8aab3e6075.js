@@ -40,7 +40,8 @@ define(function (require) {
    *
    **/
   var routers = new VueRouter({
-    routes: [require('home.homeRouter'), require('busi.busiRouter'), require('custom.customRouter')]
+    routes: [require('home.homeRouter'), //
+    require('busi.busiRouter'), require('custom.customRouter')]
   });
   //路由拦截器
   routers.beforeEach(function (to, from, next) {

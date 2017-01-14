@@ -21,7 +21,7 @@
    home:{
      homeRouter: 'components/manager/home/homeRouter',
      homeModule: 'components/manager/home/homeModule',
-    //  homeTmpl:'components/manager/home/homeTmpl.html',
+     homeTmpl:'text!components/manager/home/homeTmpl.html',
 
      module: 'components/manager/home/hStore/module',
      store:  'components/manager/home/hStore/store',
