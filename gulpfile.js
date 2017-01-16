@@ -95,7 +95,7 @@ gulp.task('minifycss', function(){
     .pipe( gulpif(options.env === 'online',rename({suffix: '.min'})) )//发布的时候才 rename压缩后的文件名
     .pipe( gulp.dest(paths.styles.dest) ) //输出文件夹
     .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
-    
+
 });
 
 //lib库复制
@@ -218,16 +218,12 @@ gulp.task('server',function(cb){
 
 //删除掉上一次构建时创建的资源
 gulp.task('clean', function() {
-  return del(['build/components/*',
-              'rev-manifest.json',
-              'build/javascripts/base/*',
-              'build/javascripts/manager/*',
-              'build/stylesheets/manager/*']);
+  return del(['build/*','rev-manifest.json']);
 });
 
 /////////////////////////////////////开发 =>gulp////////////////////////////////////////////////////
 //'server',
-gulp.task('default', ['clean','copylib','minifycss','minifyjs','minifyhtml','minifyimages'], function(callback) {
+gulp.task('default', ['copylib','minifycss','minifyjs','minifyhtml','minifyimages'], function(callback) {
 
   // 将你的默认的任务代码放在这
 

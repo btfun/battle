@@ -1,1 +1,107 @@
-"use strict";var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};!function(e,o,t){t(e(),o)}(function(){return{text:"javascripts/lib/requireJS/requireJS-text",vue:"javascripts/lib/vue/vue",vueRouter:"javascripts/lib/vue/vue-router/vue-router",vueResource:"javascripts/lib/vue/vue-resource/vue-resource",vuex:"javascripts/lib/vue/vuex/vuex",logger:"javascripts/lib/vue/vuex/logger",globalUri:"javascripts/base/globalUri-da8a36a823",globalUtil:"javascripts/base/globalUtil-bd28120504",mainHomeIndex:"javascripts/manager/mainIndex-4e693c53fb",mainHomeElectron:"javascripts/manager/mainElectron-18ec974c16",home:{homeRouter:"components/manager/home/homeRouter-1c44d64e72",homeModule:"components/manager/home/homeModule-23976df73a",homeTmpl:"components/manager/home/homeTmpl-5e24e729b3",module:"components/manager/home/hStore/module-41a68371de",store:"components/manager/home/hStore/store-125020f1e4",getters:"components/manager/home/hStore/getters-125020f1e4",mutations:"components/manager/home/hStore/mutations-f2984a3082",actions:"components/manager/home/hStore/actions-b180f87f69",oneModule:"components/manager/home/children/one/oneModule-6bdceba931",twoModule:"components/manager/home/children/two/twoModule-f95da0f32d"},busi:{busiRouter:"components/manager/busi/busiRouter-5426a8f8ae",busiModule:"components/manager/busi/busiModule-7a5b4c00ae",busiTmpl:"components/manager/busi/busiTmpl-2a6467ed78",module:"components/manager/busi/bStore/module-793d35869a",store:"components/manager/busi/bStore/store-125020f1e4",getters:"components/manager/busi/bStore/getters-125020f1e4",mutations:"components/manager/busi/bStore/mutations-f2984a3082",actions:"components/manager/busi/bStore/actions-b180f87f69"},custom:{customRouter:"components/manager/custom/customRouter-f7162d137b",customModule:"components/manager/custom/customModule-4605516634",customTmpl:"components/manager/custom/customTmpl-7c05bb9f6b",module:"components/manager/custom/cStore/module-63aead0b73",store:"components/manager/custom/cStore/store-125020f1e4",getters:"components/manager/custom/cStore/getters-125020f1e4",mutations:"components/manager/custom/cStore/mutations-f2984a3082",actions:"components/manager/custom/cStore/actions-b180f87f69"}}},window,function(e,o){var t={};for(var n in e)if("string"==typeof e[n])t[n]=e[n];else if("object"===_typeof(e[n]))for(var r in e[n])if("object"===_typeof(e[n][r])){for(var m in e[n][r])if(t[n+"."+r+"."+m]=e[n][r][m],"object"===_typeof(e[n][r][m]))return alert("警告require配置对象不能有三级对象属性")}else t[n+"."+r]=e[n][r];o.requirejs.config({baseUrl:"/",paths:t}),o.require(["mainHomeIndex"]),o.logPath=function(e,o){if(123456===e)for(var n in t)o?n.indexOf(o)>-1&&console.log(n,":",t[n]):console.log(n,":",t[n])}});
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+(function (factory, win, fn) {
+  fn(factory(), win);
+})(function () {
+  'use strict';
+  //控制台输入 logPath('123456','searchKeys')查看对应的链接1231231
+
+  return {
+    //////////////////lib//////////////////////
+    text: 'javascripts/lib/requireJS/requireJS-text',
+    vue: 'javascripts/lib/vue/vue',
+    vueRouter: 'javascripts/lib/vue/vue-router/vue-router',
+    vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
+    vuex: 'javascripts/lib/vue/vuex/vuex',
+    logger: 'javascripts/lib/vue/vuex/logger',
+    //base
+    globalUri: 'javascripts/base/globalUri',
+    globalUtil: 'javascripts/base/globalUtil',
+    //////////////////主入口/////////////////////
+    mainHomeIndex: 'javascripts/manager/mainIndex',
+    mainHomeElectron: 'javascripts/manager/mainElectron',
+    //////////////////组件入口1///////////////////
+    home: {
+      homeRouter: 'components/manager/home/homeRouter',
+      homeModule: 'components/manager/home/homeModule',
+      homeTmpl: 'components/manager/home/homeTmpl',
+
+      module: 'components/manager/home/hStore/module',
+      store: 'components/manager/home/hStore/store',
+      getters: 'components/manager/home/hStore/getters',
+      mutations: 'components/manager/home/hStore/mutations',
+      actions: 'components/manager/home/hStore/actions',
+
+      oneModule: 'components/manager/home/children/one/oneModule',
+      twoModule: 'components/manager/home/children/two/twoModule'
+    },
+
+    //////////////////组件入口2///////////////////
+    busi: {
+      busiRouter: 'components/manager/busi/busiRouter',
+      busiModule: 'components/manager/busi/busiModule',
+      busiTmpl: 'components/manager/busi/busiTmpl',
+
+      module: 'components/manager/busi/bStore/module',
+      store: 'components/manager/busi/bStore/store',
+      getters: 'components/manager/busi/bStore/getters',
+      mutations: 'components/manager/busi/bStore/mutations',
+      actions: 'components/manager/busi/bStore/actions'
+    },
+
+    //////////////////组件入口3///////////////////
+    custom: {
+      customRouter: 'components/manager/custom/customRouter',
+      customModule: 'components/manager/custom/customModule',
+      customTmpl: 'components/manager/custom/customTmpl',
+
+      module: 'components/manager/custom/cStore/module',
+      store: 'components/manager/custom/cStore/store',
+      getters: 'components/manager/custom/cStore/getters',
+      mutations: 'components/manager/custom/cStore/mutations',
+      actions: 'components/manager/custom/cStore/actions'
+    }
+
+  };
+}, window, function (pathMods, win) {
+  'use strict';
+  //pathMods 层级对象抹平，最多支持三级对象属性
+
+  var path = {};
+  for (var attr in pathMods) {
+    if (typeof pathMods[attr] === 'string') {
+      path[attr] = pathMods[attr];
+    } else if (_typeof(pathMods[attr]) === 'object') {
+      for (var att in pathMods[attr]) {
+        if (_typeof(pathMods[attr][att]) === 'object') {
+          for (var at in pathMods[attr][att]) {
+            path[attr + '.' + att + '.' + at] = pathMods[attr][att][at];
+            if (_typeof(pathMods[attr][att][at]) === 'object') return alert('警告require配置对象不能有三级对象属性');
+          }
+        } else {
+          path[attr + '.' + att] = pathMods[attr][att];
+        }
+      }
+    }
+  }
+
+  win.requirejs.config({
+    baseUrl: '/',
+    // urlArgs: GLOBAL.version,
+    paths: path
+  });
+  win.require(['mainHomeIndex']); //这里的不能被替换MD5后缀
+
+  win.logPath = function (pwd, conf) {
+    if (pwd !== 123456) return;
+    for (var ins in path) {
+      if (conf) {
+        if (ins.indexOf(conf) > -1) console.log(ins, ':', path[ins]);
+      } else {
+        console.log(ins, ':', path[ins]);
+      }
+    }
+  };
+});

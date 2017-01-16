@@ -17,12 +17,15 @@ gulp
 # 2 auto open chrome
 gulp server
 
-# 1 生产环境文件编译
+# 1 先清除文件
+gulp clean
+
+# 2 生产环境文件编译
 gulp --env online
 
-# 2 生产环境文件MD5替换
+# 3 生产环境文件MD5替换
 gulp onilne
- 
+
 
 # run all tests
 npm test
