@@ -21,7 +21,7 @@
    home:{
      homeRouter: 'components/manager/home/homeRouter',
      homeModule: 'components/manager/home/homeModule',
-     homeTmpl:'text!components/manager/home/homeTmpl.html',
+     homeTmpl: 'components/manager/home/homeTmpl',
 
      module: 'components/manager/home/hStore/module',
      store:  'components/manager/home/hStore/store',
@@ -37,6 +37,7 @@
    busi:{
      busiRouter: 'components/manager/busi/busiRouter',
      busiModule: 'components/manager/busi/busiModule',
+     busiTmpl: 'components/manager/busi/busiTmpl',
 
      module: 'components/manager/busi/bStore/module',
      store: 'components/manager/busi/bStore/store',
@@ -49,6 +50,7 @@
    custom:{
      customRouter: 'components/manager/custom/customRouter',
      customModule: 'components/manager/custom/customModule',
+     customTmpl: 'components/manager/custom/customTmpl',
 
      module: 'components/manager/custom/cStore/module',
      store: 'components/manager/custom/cStore/store',
@@ -83,10 +85,10 @@
 
   win.requirejs.config({
     baseUrl: '/',
-    urlArgs: GLOBAL.version,
+    // urlArgs: GLOBAL.version,
     paths: path
   });
-  win.require(['text','mainHomeIndex']);//这里的不能被替换MD5后缀
+  win.require(['mainHomeIndex']);//这里的不能被替换MD5后缀
 
   win.logPath=function(pwd,conf){
       if(pwd!==123456)return;

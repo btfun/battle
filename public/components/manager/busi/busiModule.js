@@ -3,7 +3,7 @@ define(function(require){
 
 
   return  {
-    template:require('text!components/manager/busi/busiTmpl.html'),
+    template: require('text!busi.busiTmpl.html'),
     data:function(){
       return {
         msg:123,

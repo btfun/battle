@@ -124,7 +124,7 @@ gulp.task('minifyjs', function(){
       .pipe( gulp.dest(paths.scripts.golablBaseTo))  //输出
       .pipe(reload({stream: true})) //编译后注入到浏览器里实现更新
       .pipe( gulpif(options.env === 'online',rev.manifest({merge:true})) )//输出描述文件rev-manifest.json
-      .pipe( gulp.dest(''));
+      .pipe( gulpif(options.env === 'online',gulp.dest('')) );
 
 
 var manager=gulp.src(paths.scripts.golablSrc)
@@ -141,7 +141,7 @@ var manager=gulp.src(paths.scripts.golablSrc)
     .pipe( gulp.dest(paths.scripts.golablTo))  //输出
     .pipe(reload({stream: true})) //编译后注入到浏览器里实现更新
     .pipe( gulpif(options.env === 'online',rev.manifest({merge:true})) )//输出描述文件rev-manifest.json
-    .pipe( gulp.dest(''));
+    .pipe( gulpif(options.env === 'online',gulp.dest('')) );
 
 var components=gulp.src(paths.scripts.componentsSrc)
     .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
@@ -158,7 +158,8 @@ var components=gulp.src(paths.scripts.componentsSrc)
     .pipe( gulp.dest(paths.scripts.componentsTo))  //输出
     .pipe(reload({stream: true})) //编译后注入到浏览器里实现更新
     .pipe( gulpif(options.env === 'online',rev.manifest({merge:true})) )//输出描述文件rev-manifest.json
-    .pipe( gulp.dest(''));
+    .pipe( gulpif(options.env === 'online',gulp.dest('')) );
+
 
       return merge(base, manager,components);
 });
@@ -166,8 +167,11 @@ var components=gulp.src(paths.scripts.componentsSrc)
 gulp.task('minifyhtml', function(cb) {
    return gulp.src(paths.tmpls.src)
     .pipe( minifyhtml({removeComments: true,collapseWhitespace: true}))
+    .pipe( gulpif(options.env === 'online',rev()) ) //发布的时候才MD5
     .pipe(gulp.dest(paths.tmpls.dest))
-    .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
+    .pipe(reload({stream: true})) //编译后注入到浏览器里实现更新
+    .pipe( gulpif(options.env === 'online',rev.manifest({merge:true})) )//输出描述文件rev-manifest.json
+    .pipe( gulpif(options.env === 'online',gulp.dest('')) );
 });
 
 //图片压缩
@@ -232,80 +236,11 @@ gulp.task('default', ['clean','copylib','minifycss','minifyjs','minifyhtml'], fu
 
 /////////////////////////////////////生产=> gulp online////////////////////////////////////////////////////
 
-//css 编译压缩
-gulp.task('online_minifycss', function(){
-    return gulp.src(paths.styles.src)
-    .pipe( debug({title: '编译css:'}))
-    .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-    .pipe( less())
-    .pipe( sourcemaps.write())
-    .pipe( autoprefixer('last 2 versions', '> 1%', 'ie 8', 'Android >=4.0') )  //添加浏览器前缀
-    .pipe( minifycss() ) //执行压缩
-    .pipe( concat('all.css'))
-    .pipe( rename({suffix: '.min'}) )   //rename压缩后的文件名
-    .pipe( gulp.dest(paths.styles.dest) ); //输出文件夹
-});
-
-//base压缩
-gulp.task('online_minify_basejs', function(){
-  return gulp.src(paths.scripts.golablBaseSrc)
-      .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-      .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
-      .pipe( jshint())//语法检查
-      .pipe( jshint.reporter('default'))//默认错误提示
-      .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']} } ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
-      .pipe( rev())                                        //- 文件名加MD5后缀
-      .pipe( gulp.dest(paths.scripts.golablBaseTo))  //输出
-      .pipe( rev.manifest({merge:true}))                   //- 生成一个rev-manifest.json
-      .pipe( gulp.dest(''));                                //- 映射文件输出目录
-});
-
-//manager压缩
-gulp.task('online_minify_managerjs', function(){
-  return gulp.src(paths.scripts.golablSrc)
-      .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-      .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
-      .pipe( jshint())//语法检查
-      .pipe( jshint.reporter('default'))//默认错误提示
-      .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']} } ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
-      .pipe( rev())                                        //- 文件名加MD5后缀
-      .pipe( gulp.dest(paths.scripts.golablTo))  //输出
-      .pipe( rev.manifest({merge:true}))                   //- 生成一个rev-manifest.json
-      .pipe( gulp.dest(''));                                //- 映射文件输出目录
-});
-//js压缩
-gulp.task('online_minify_componentsjs', function() {
-    return gulp.src(paths.scripts.componentsSrc)
-        .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-        .pipe( debug({title: '编译js:'}))
-        .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
-        .pipe( jshint())//语法检查
-        .pipe( jshint.reporter('default'))//默认错误提示
-        .pipe( uglify( {mangle: {except: ['require' ,'exports' ,'module' ,'$']}} ).on('error',function(e){ console.error('【minifyjs】错误信息:',e); }) )
-        .pipe( rev())                                        //- 文件名加MD5后缀
-        .pipe( gulp.dest(paths.scripts.componentsTo))  //输出
-        .pipe( rev.manifest({merge:true}))                   //- 生成一个rev-manifest.json
-        .pipe( gulp.dest(''));                                //- 映射文件输出目录
-});
-
-gulp.task('online_minifyhtml', function() {
-  return gulp.src(paths.tmpls.src)
-    .pipe(minifyhtml({collapseWhitespace: true}))
-    .pipe(gulp.dest(paths.tmpls.dest));
-});
-
-
-
 //构建总入口
-gulp.task('online',['clean','copycsslib','copyjslib',
-                    'online_minifycss',
-                    'online_minifyhtml',
-                    "online_minify_basejs",
-                    "online_minify_managerjs",
-                    "online_minify_componentsjs" ], function(callback) {
+gulp.task('online', function(callback) {
 
    runSequence(
-       "online_replaceSuffix",               //- 替换.js后缀
+       "online_replaceSuffix",               //- 替换.js .html后缀
        "online_replaceRequireConfPath",      //- 路径替换为md5后的路径
        "online_cleanRequireConf",            //删除多余的配置文件
        callback);
@@ -322,7 +257,7 @@ function modify(modifier) {
 }
 
 function replaceSuffix(data) {
-    return data.replace(/\.js/gmi, "");
+    return data.replace(/\.js/gmi, "").replace(/\.html/gmi, "");
 }
 
 gulp.task("online_replaceSuffix",function (cb) {

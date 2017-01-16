@@ -3,11 +3,11 @@ define(function(require){
 
 
   return  {
-    template: require('text!components/manager/custom/customTmpl.html'),
+    template: require('text!custom.customTmpl.html'),
     data:function(){
       return {
         msg:123,
-        age:20,
+        age:20
       }
     }
   }

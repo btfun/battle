@@ -8,16 +8,22 @@
 
 ## Build Setup
 ``` bash
-# install dependencies  test
+# 安装所需文件
 npm install
 
-# auto open chrome
+# 1  编译文件
 gulp
 
-# run unit tests
-npm run unit
+# 2 auto open chrome
+gulp server
+
+# 1 生产环境文件编译
+gulp --env online
+
+# 2 生产环境文件MD5替换
+gulp onilne
+ 
 
 # run all tests
 npm test
 ```
- 

@@ -5,8 +5,8 @@ define(function(require){
 */
 
 
-return  {
-    template: require('text!components/manager/home/homeTmpl.html'),
+return  { 
+    template: require('text!home.homeTmpl.html'),
     data:function(){
       return {
         msg:'测试一下咯',
