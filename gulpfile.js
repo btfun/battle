@@ -71,16 +71,18 @@ var paths = {
      };
 
 
-     var knownOptions = {
-       string: 'env',
-       default: { env: process.env.NODE_ENV || 'dev' }
-     };
+ var knownOptions = {
+   string: 'env',
+   default: { env: process.env.NODE_ENV || 'dev' }
+ };
 
-     var options = minimist(process.argv.slice(2), knownOptions);
+ var options = minimist(process.argv.slice(2), knownOptions);
 
 
 //css 编译压缩
 gulp.task('minifycss', function(){
+  //注意 如果发现合并后的css文件大小超过500KB 则需要处理成2个压缩文件
+
     return gulp.src(paths.styles.src)
     .pipe( changed(paths.styles.dest,{extension: '.min.css'}))//通过改变的文件
     .pipe( debug({title: '编译css:'}))
@@ -88,11 +90,12 @@ gulp.task('minifycss', function(){
     .pipe( less())
     .pipe( sourcemaps.write())
     .pipe( autoprefixer('last 2 versions', '> 1%', 'ie 8', 'Android >=4.0') )  //添加浏览器前缀
-    .pipe( minifycss() ) //执行压缩
+    .pipe( gulpif(options.env === 'online',minifycss()) )//发布的时候才压缩
     .pipe( concat('all.css'))
-    .pipe( rename({suffix: '.min'}) )   //rename压缩后的文件名
+    .pipe( gulpif(options.env === 'online',rename({suffix: '.min'})) )//发布的时候才 rename压缩后的文件名
     .pipe( gulp.dest(paths.styles.dest) ) //输出文件夹
     .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
+    
 });
 
 //lib库复制
@@ -224,7 +227,7 @@ gulp.task('clean', function() {
 
 /////////////////////////////////////开发 =>gulp////////////////////////////////////////////////////
 //'server',
-gulp.task('default', ['clean','copylib','minifycss','minifyjs','minifyhtml'], function(callback) {
+gulp.task('default', ['clean','copylib','minifycss','minifyjs','minifyhtml','minifyimages'], function(callback) {
 
   // 将你的默认的任务代码放在这
 
@@ -253,7 +256,7 @@ function modify(modifier) {
 }
 
 function replaceSuffix(data) {
-    return data.replace(/\.js/gmi, "").replace(/\.html/gmi, "");
+    return data.replace(/\.js/gmi, "").replace(/\.html/gmi, "").replace(/\.css/gmi, "");
 }
 
 gulp.task("online_replaceSuffix",function (cb) {

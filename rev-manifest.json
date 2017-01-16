@@ -1,4 +1,5 @@
 {
+  "all.min": "all-70aa2eea3d.min",
   "global/layout/footer/footer": "global/layout/footer/footer-d41d8cd98f",
   "global/layout/footer/footer": "global/layout/footer/footer-8971778a9c",
   "global/layout/header/header": "global/layout/header/header-d41d8cd98f",
@@ -14,7 +15,7 @@
   "manager/busi/bStore/module": "manager/busi/bStore/module-793d35869a",
   "manager/busi/bStore/mutations": "manager/busi/bStore/mutations-f2984a3082",
   "manager/busi/bStore/store": "manager/busi/bStore/store-125020f1e4",
-  "manager/busi/busiModule": "manager/busi/busiModule-9d4a9abb78",
+  "manager/busi/busiModule": "manager/busi/busiModule-7a5b4c00ae",
   "manager/busi/busiRouter": "manager/busi/busiRouter-5426a8f8ae",
   "manager/busi/busiTmpl": "manager/busi/busiTmpl-2a6467ed78",
   "manager/custom/cStore/actions": "manager/custom/cStore/actions-b180f87f69",
