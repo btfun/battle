@@ -66,7 +66,7 @@ var paths = {
        },
        images:{
          src: 'public/components/**/*.{png,jpg,gif,ico}',
-         dest: 'build/stylesheets/manager'
+         dest: 'build/stylesheets'
        }
      };
 
@@ -210,7 +210,7 @@ gulp.task('server',function(cb){
       gulp.watch([paths.styles.src],  ['minifycss']);
       gulp.watch([paths.scripts.golablSrc,paths.scripts.golablBaseSrc,paths.scripts.componentsSrc], ['minifyjs']);
       gulp.watch([paths.tmpls.src], ['minifyhtml']);
-      cb()
+
 })
 
 //删除掉上一次构建时创建的资源
@@ -227,10 +227,6 @@ gulp.task('clean', function() {
 gulp.task('default', ['clean','copylib','minifycss','minifyjs','minifyhtml'], function(callback) {
 
   // 将你的默认的任务代码放在这
-    // gulp.run('server');
-    // gulp.watch([paths.styles.src],  ['minifycss']);
-    // gulp.watch([paths.scripts.golablSrc,paths.scripts.golablBaseSrc,paths.scripts.componentsSrc], ['minifyjs']);
-    // gulp.watch([paths.tmpls.src], ['minifyhtml']);
 
 });
 

@@ -7,6 +7,7 @@ home/one123
 home/two12313
 
 */
+
   return { path: '/',
             component: resolve => require(['home.homeModule'],resolve),
             children: [
