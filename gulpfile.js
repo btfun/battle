@@ -196,9 +196,8 @@ gulp.task('minifyimages', function() {
 gulp.task('server',function(cb){
     var started = false;
       nodemon({
-        ignore:['gulpfile.js','node_modules/'], //忽略不需要监视重启的文件
-        script: './bin/www',
-        ext:'js html'
+        ignore:['gulpfile.js','node_modules/', './public/**/*.*'], //忽略不需要监视重启的文件
+        script: './bin/www'
     }).on('start',function(){
       if (!started) {
         started = true;
