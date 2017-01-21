@@ -194,11 +194,14 @@ gulp.task('minifyimages', function() {
 // 静态服务器 + 监听 scss/html 文件
 
 gulp.task('server',function(cb){
+    var started = false;
       nodemon({
         ignore:['gulpfile.js','node_modules/'], //忽略不需要监视重启的文件
         script: './bin/www',
         ext:'js html'
     }).on('start',function(){
+      if (!started) {
+        started = true;
         browserSync.init({
             files: ['./views/**/*.*'], //, './public/**/*.*'（和浏览器注入脚本不能同事使用）
             proxy:'http://localhost:3011', //设置代理运行本地的3000端口
@@ -208,6 +211,7 @@ gulp.task('server',function(cb){
         },function(){
             console.log('浏览器已刷新')
         })
+      }
     });
 
       gulp.watch([paths.styles.src],  ['minifycss']);
