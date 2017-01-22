@@ -92,7 +92,8 @@ gulp.task('minifycss', function(){
     .pipe( autoprefixer('last 2 versions', '> 1%', 'ie 8', 'Android >=4.0') )  //添加浏览器前缀
     .pipe( gulpif(options.env === 'online',minifycss()) )//发布的时候才压缩
     .pipe( concat('all.css'))
-    .pipe( gulpif(options.env === 'online',rename({suffix: '.min'})) )//发布的时候才 rename压缩后的文件名
+    // .pipe( gulpif(options.env === 'online',rename({suffix: '.min'})) )//发布的时候才 rename压缩后的文件名
+    .pipe( rename({suffix: '.min'}) )//发布的时候才 rename压缩后的文件名
     .pipe( gulp.dest(paths.styles.dest) ) //输出文件夹
     .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
 
@@ -196,7 +197,7 @@ gulp.task('minifyimages', function() {
 gulp.task('server',function(cb){
     var started = false;
       nodemon({
-        ignore:['gulpfile.js','node_modules/', './public/**/*.*'], //忽略不需要监视重启的文件
+        ignore:['gulpfile.js','node_modules/', 'public/**/*.*'], //忽略不需要监视重启的文件
         script: './bin/www'
     }).on('start',function(){
       if (!started) {
@@ -221,7 +222,7 @@ gulp.task('server',function(cb){
 
 //删除掉上一次构建时创建的资源
 gulp.task('clean', function() {
-  return del(['build/*','rev-manifest.json']);
+  return del(['build/*','rev-manifest.json','!build/favicon.ico']);
 });
 
 /////////////////////////////////////开发 =>gulp////////////////////////////////////////////////////

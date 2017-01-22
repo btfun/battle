@@ -13,13 +13,16 @@ define(function(require){
 
   var globalUtil=require('globalUtil');
 
-  console.log('==>>>===',globalUtil.createUUid())
 
  Vue.use(Vuex);
  Vue.use(VueRouter);
  Vue.use(vueResource);
 
-
+ // 务必在加载 Vue 之后，立即同步设置以下内容
+ Vue.config.devtools = true;
+ Vue.config.errorHandler = function (err, vm) {
+   // handle error
+ }
 
  /**
   * 一: 应用全局状态树顶级模块入口
