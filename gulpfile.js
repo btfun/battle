@@ -111,65 +111,7 @@ gulp.task('copylib',function(){
 });
 
 /***********************js模块编译压缩*******************************/
-gulp.task('minifyjs', function(){
-
-  var base= gulp.src(paths.scripts.golablBaseSrc)
-      .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-      .pipe( changed(paths.scripts.golablBaseTo))//通过改变的文件
-      .pipe( debug({title: '编译base:'}))
-      .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
-      .pipe( jshint())//语法检查
-      // .pipe( jshint.reporter('default'))//默认错误提示(最严格)
-      .pipe( gulpif(options.env === 'online', uglify({
-           mangle: {except: ['require' ,'exports' ,'module' ,'$']}
-          }).on('error',function(e){
-           console.error('【minifyjs】错误信息:',e);
-         }) ))//发布的时候才压缩
-      .pipe( gulpif(options.env === 'online',rev()) )//发布的时候才MD5
-      .pipe( gulp.dest(paths.scripts.golablBaseTo))  //输出
-      .pipe(reload({stream: true})) //编译后注入到浏览器里实现更新
-      .pipe( gulpif(options.env === 'online',rev.manifest({merge:true})) )//输出描述文件rev-manifest.json
-      .pipe( gulpif(options.env === 'online',gulp.dest('')) );
-
-
-var manager=gulp.src(paths.scripts.golablSrc)
-    .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-    .pipe( changed(paths.scripts.golablTo))//通过改变的文件
-    .pipe( debug({title: '编译manager:'}))
-    .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
-    .pipe( jshint())//语法检查
-    // .pipe( gulpif(options.env === 'online', uglify({
-    //      mangle: {except: ['require' ,'exports' ,'module' ,'$']}
-    //     }).on('error',function(e){
-    //      console.error('【minifyjs】错误信息:',e);
-    //    }) ))//发布的时候才压缩
-    .pipe( gulpif(options.env === 'online',rev()) )//发布的时候才MD5
-    .pipe( gulp.dest(paths.scripts.golablTo))  //输出
-    .pipe(reload({stream: true})) //编译后注入到浏览器里实现更新
-    .pipe( gulpif(options.env === 'online',rev.manifest({merge:true})) )//输出描述文件rev-manifest.json
-    .pipe( gulpif(options.env === 'online',gulp.dest('')) );
-
-var components=gulp.src(paths.scripts.componentsSrc)
-    .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-    .pipe( changed(paths.scripts.componentsTo))//通过改变的文件
-    .pipe( debug({title: '编译components:'}))
-    .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
-    .pipe( jshint())//语法检查
-    .pipe( gulpif(options.env === 'online', uglify({
-         mangle: {except: ['require' ,'exports' ,'module' ,'$']}
-        }).on('error',function(e){
-         console.error('【minifyjs】错误信息:',e);
-       }) ))//发布的时候才压缩
-    .pipe( gulpif(options.env === 'online',rev()) ) //发布的时候才MD5
-    .pipe( gulp.dest(paths.scripts.componentsTo))  //输出
-    .pipe(reload({stream: true})) //编译后注入到浏览器里实现更新
-    .pipe( gulpif(options.env === 'online',rev.manifest({merge:true})) )//输出描述文件rev-manifest.json
-    .pipe( gulpif(options.env === 'online',gulp.dest('')) );
-
-
-      return merge(base, manager,components);
-});
-
+ 
 gulp.task('minifybase', function(cb) {
    return gulp.src(paths.scripts.golablBaseSrc)
        .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
@@ -300,11 +242,6 @@ gulp.task('clean', function() {
 gulp.task('default', ['copylib','minifycss','minifyimages'], function(callback) {
 
   // 将你的默认的任务代码放在这
-  // runSequence(
-  //     "minifyjs",
-  //     "minifyhtml",
-  //     callback);
-
   runSequence(
       "minifybase",
       "minifymanager",
@@ -313,7 +250,7 @@ gulp.task('default', ['copylib','minifycss','minifyimages'], function(callback) 
       callback);
 });
 
- 
+
 /////////////////////////////////////生产=> gulp online////////////////////////////////////////////////////
 
 //构建总入口
