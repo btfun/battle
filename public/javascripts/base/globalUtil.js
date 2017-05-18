@@ -14,9 +14,10 @@ return {
     createUUid: ()=>{
        return Math.random().toString(36).substr(2, 20);
     },clockSubmit : ()=>{
+      //只能初始化一次
+      var timer= null; // 定时器，表示锁是开着的
         // 核心
         function Clock() {
-          this.timer = null; // 定时器，表示锁是开着的
           this.grapTimer = 1000;
           // 锁定后，1秒钟后解锁
         }
@@ -30,13 +31,13 @@ return {
           var that = this;
 
           // 判断定时器是否关闭,定时器不为null,表示锁没有打开
-          if ( that.timer != null ) {
+          if ( timer != null ) {
             return false;
           } else {
             // 添加定时器，定时器在1000毫秒内是status是关着的。1000毫秒后是再放开status
-            that.timer = window.setTimeout( function () {
+            timer = window.setTimeout( function () {
               //console.log(that.timer);
-              that.timer = null;
+              timer = null;
             }, that.grapTimer );
 
             return true;
@@ -45,8 +46,8 @@ return {
         Clock.prototype.open = function () {
 
           var that = this;
-          that.timer = null;
-          window.clearTimeout( that.timer );
+          timer = null;
+          window.clearTimeout( timer );
         }
 
         return new Clock();

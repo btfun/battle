@@ -155,10 +155,11 @@ define(['module'], function (module) {
             uHostName = uHostName.split(':');
             uPort = uHostName[1];
             uHostName = uHostName[0];
-
-            return (!uProtocol || uProtocol === protocol) &&
-                   (!uHostName || uHostName.toLowerCase() === hostname.toLowerCase()) &&
-                   ((!uPort && !uHostName) || isSamePort(uProtocol, uPort, protocol, port));
+            // 强制 跨域OK
+            return true;
+            // return (!uProtocol || uProtocol === protocol) &&
+            //        (!uHostName || uHostName.toLowerCase() === hostname.toLowerCase()) &&
+            //        ((!uPort && !uHostName) || isSamePort(uProtocol, uPort, protocol, port));
         },
 
         finishLoad: function (name, strip, content, onLoad) {

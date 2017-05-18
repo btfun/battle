@@ -22,11 +22,11 @@ app.engine('.html', template.__express);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
-app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'dist', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 //路由配置
 

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-NODE_USER=mljia pm2 restart all
+NODE_USER=mljia pm2 restart battle
