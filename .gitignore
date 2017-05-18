@@ -4,6 +4,7 @@ logs/
 config/
 conf/
 build/
+dist/
 node_modules/
 
 routes/manager/
